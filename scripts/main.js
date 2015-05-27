@@ -47,7 +47,22 @@ $('.search_form').on('submit', function(event) {
 
     if (results.length > 0) { // If we have results to show
         for (var i = 0; i < results.length; i++) {
-            $('.search_results').append('<li card_id="' + results[i].id + '">' + results[i].name + '</li>');
+            var attack;
+            var health;
+
+            if (results[i].attack === null) {
+                attack = 0;
+            } else {
+                attack = results[i].attack;
+            }
+
+            if (results[i].health === null) {
+                health = 0;
+            } else {
+                health = results[i].health;
+            }
+
+            $('.search_results').append('<li card_id="' + results[i].id + '"><b>' + results[i].name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + results[i].mana + ' mana</li>');
         }
     } else {
         $('.search_results').append('<li>No results found</li>');
