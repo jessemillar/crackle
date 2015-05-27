@@ -13,9 +13,11 @@ $(document).mousemove(function(event) {
 $('.search_results').on('mouseenter', 'li', function(event) {
     var card_id = $(this).attr('card_id');
 
-    $('.card_preview').attr('src','images/cards/' + card_id + '.png');
+    if (card_id) {
+        $('.card_preview').attr('src', 'images/cards/' + card_id + '.png');
 
-    $('.card_preview').show();
+        $('.card_preview').show();
+    }
 });
 
 $('.search_results').on('mouseleave', 'li', function(event) {
