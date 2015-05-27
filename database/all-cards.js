@@ -1,4 +1,4 @@
-{
+var allCards = {
     "meta": {
         "patch": "2.5.0.8416",
         "last_updated": "25.04.2015",
