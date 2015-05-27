@@ -6,15 +6,12 @@
     <meta name="viewport" content="width = device-width">
 </head>
 
-<body>
-    <input id="search" type="text" onkeydown="search()">
+<body onload="init()">
+    <input id="search" type="text" onkeyup="search()" oninput="search()" onpaste="search()">
+    <ul id="results"></ul>
 </body>
 
-<!-- <script type="text/javascript" src="database/all-cards.js"></script> -->
 <script type="text/javascript" src="database/all-collectibles.js"></script>
-<!-- <script type="text/javascript" src="database/brm.js"></script>
-<script type="text/javascript" src="database/gvg.js"></script>
-<script type="text/javascript" src="database/naxxramas.js"></script> -->
 
 <script type="text/javascript" src="scripts/main.js"></script>
 
