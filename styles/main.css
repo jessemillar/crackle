@@ -1,4 +1,20 @@
-.card {
-    width: 100px;
-    height: 100px;
+.search_form {
+    padding: 20px;
+    margin: 0;
+}
+
+.search_results {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.search_results li:first-child {
+    border-top: solid 1px #DDDDDD;
+}
+
+.search_results li {
+    border-bottom: solid 1px #DDDDDD;
+
+    padding: 10px 20px;
 }

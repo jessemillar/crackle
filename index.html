@@ -9,12 +9,16 @@
 </head>
 
 <body onload="init()">
-    <img id="card_preview" style="display:none" src="https://raw.githubusercontent.com/jessemillar/crackle/gh-pages/images/cards/8.png" />
-    <form id="search_form">
-        <input id="search" class="form-control" type="text">
-        <button class="btn btn-default" type="submit">Search</button>
+    <img class="card_preview" style="display:none" />
+    <form class="search_form">
+        <div class="input-group">
+            <input id="search" class="search_text form-control" type="text">
+            <span class="input-group-btn">
+            <button class="search_button btn btn-default" type="submit">Search</button>
+            </span>
+        </div>
     </form>
-    <ul id="results"></ul>
+    <ul class="search_results"></ul>
 </body>
 <script type="text/javascript" src="database/all-collectibles.js"></script>
 <script type="text/javascript" src="scripts/dependencies/jquery-1.11.3.min.js"></script>
