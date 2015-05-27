@@ -7,12 +7,13 @@
 </head>
 
 <body onload="init()">
-    <input id="search" type="text" onkeyup="search()" oninput="search()" onpaste="search()">
+    <form id="form">
+        <input id="search" type="text">
+        <input type="submit" value="Search">
+    </form>
     <ul id="results"></ul>
 </body>
-
 <script type="text/javascript" src="database/all-collectibles.js"></script>
-
 <script type="text/javascript" src="scripts/dependencies/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
 
