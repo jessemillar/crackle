@@ -2,19 +2,22 @@
 
 <head>
     <title>Crackle</title>
+    <link href="styles/dependencies/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/dependencies/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
     <link href="styles/main.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width = device-width">
 </head>
 
 <body onload="init()">
     <form id="form">
-        <input id="search" type="text">
-        <input type="submit" value="Search">
+        <input id="search" class="form-control" type="text">
+        <button class="btn btn-default" type="submit">Search</button>
     </form>
     <ul id="results"></ul>
 </body>
 <script type="text/javascript" src="database/all-collectibles.js"></script>
 <script type="text/javascript" src="scripts/dependencies/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="scripts/dependencies/bootstrap.min.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
 
 </html>

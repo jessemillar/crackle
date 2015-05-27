@@ -23,7 +23,7 @@ $('#form').on('submit', function(event) {
 
     $.unique(results); // Remove duplicates
 
-    if (results.length > 0) {
+    if (results.length > 0) { // If we have results to show
         for (var i = 0; i < results.length; i++) {
             $("#results").append('<li>' + results[i].name + '</li>');
         }
@@ -31,7 +31,7 @@ $('#form').on('submit', function(event) {
         $("#results").append('<li>No results found</li>');
     }
 
-    $('#results').html(
+    $('#results').html( // Alphabetically sort the <ul>
         $('#results').children('li').sort(function(a, b) {
             return $(a).text().toUpperCase().localeCompare(
                 $(b).text().toUpperCase());
