@@ -19,6 +19,19 @@ body,
     margin: 0;
 }
 
+.search_clear {
+    position: absolute;
+    right: 80px;
+    top: 0;
+    bottom: 0;
+    height: 14px;
+    margin: auto;
+    font-size: 14px;
+    cursor: pointer;
+    color: #AAAAAA;
+    z-index: 5;
+}
+
 .search_results {
     list-style-type: none;
     padding: 0;

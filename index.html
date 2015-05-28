@@ -13,26 +13,21 @@
 <body onload="init()">
     <img class="card_preview" style="display:none" />
     <div class="navigation row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <form class="search_form">
                 <div class="input-group">
                     <input id="search" class="search_text form-control" type="text" placeholder="General Search">
+                    <span class="search_clear glyphicon glyphicon-remove-circle"></span>
                     <div class="input-group-btn">
                         <button class="btn btn-info" type="submit">Search</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="btn-group btn-group-justified">
-                <a class="btn btn-info" type="submit" onclick="changeMode('make_collection')">Make Collection</a>
-                <a class="btn btn-info" type="submit" onclick="changeMode('make_deck')">Make Deck</a>
-            </div>
-        </div>
-        <div class="col-md-3">
-            <div class="btn-group btn-group-justified">
-                <a class="btn btn-info" type="submit">Load Collection</a>
-                <a class="btn btn-info" type="submit">Load Deck</a>
+                <a class="btn btn-info" type="submit" onclick="changeMode('make_collection')">Collection</a>
+                <a class="btn btn-info" type="submit" onclick="changeMode('make_deck')">Decks</a>
             </div>
         </div>
     </div>

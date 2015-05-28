@@ -93,6 +93,10 @@ var detailAlert = function(id, name, description, hero, category, rarity, race, 
     });
 };
 
+$('.search_clear').click(function() {
+    $('#search').val('');
+});
+
 $(document).mousemove(function(event) {
     $('.card_preview').css({ // The integers are for offset so the image doesn't "cover" the cursor and cause flickering issues
         'position': 'absolute',
