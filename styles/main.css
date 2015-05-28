@@ -14,6 +14,19 @@ body,
     line-height: 1.5em;
 }
 
+.card_previews {
+
+}
+
+.card_previews img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: calc(200px + 70px);
+    max-height: calc(303px + 70px);
+    padding: 35px;
+}
+
 .navigation {
     padding: 20px 5px;
     margin: 0;
