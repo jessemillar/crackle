@@ -30,7 +30,13 @@
         <div class="col-xs-7">
             <div class="btn-group btn-group-justified">
                 <a id="browse_button" class="btn btn-info" type="submit" onclick="changeMode('browse')">Browse</a>
-                <a id="decks_button" class="btn btn-info" type="submit" onclick="changeMode('decks')">Decks</a>
+                <div class="btn-group">
+                    <a id="decks_button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" type="submit" onclick="changeMode('decks')">Decks <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Dropdown link</a></li>
+                        <li><a href="#">Dropdown link</a></li>
+                    </ul>
+                </div>
                 <a id="collection_button" class="btn btn-info" type="submit" onclick="changeMode('collection')">Collection</a>
             </div>
         </div>
