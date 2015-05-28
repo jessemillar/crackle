@@ -1,7 +1,8 @@
 var cellar = new Cellar();
 
 var mode = 'browse',
-    collection = [],
+    collection = [], // Just IDs
+    database = [], // All information for cards we have saved
     deck = [];
 
 var init = function() {
@@ -32,11 +33,28 @@ function sortByMana(a, b) {
     return ((aMana < bMana) ? -1 : ((aMana > bMana) ? 1 : 0));
 }
 
-var populateCollection = function() {
-    collection.sort(sortByMana);
+var refreshCollection = function() { // Compare the saved IDs to those in the database to get all the card info
+    database = []; // Wipe what we had
 
     for (var i = 0; i < collection.length; i++) {
-        $('.card_previews').append('<li><center><img src="images/cards/8.png" /></center><li>');
+        for (var j = 0; j < collectibles.cards.length; j++) {
+            if (collection[i] == collectibles.cards[j].id) {
+                database.push(collectibles.cards[j]);
+                break;
+            }
+        }
+    }
+};
+
+var populateCollection = function() {
+    refreshCollection();
+
+    $('.card_previews').empty(); // Clear the HTML table
+
+    database.sort(sortByMana);
+
+    for (var i = 0; i < database.length; i++) {
+        $('.card_previews').append('<td><center><img src="images/cards/' + database[i].id + '.png" /></center></td>');
     }
 };
 
@@ -148,6 +166,8 @@ var liClick = function(id, name, description, hero, category, rarity, race, set,
 
                 if (count < 2) {
                     collection.push(id);
+
+                    populateCollection();
 
                     cellar.save('collection', collection);
 
