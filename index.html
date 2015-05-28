@@ -18,7 +18,7 @@
                 <div class="input-group">
                     <input id="search" class="search_text form-control" type="text" placeholder="General Search">
                     <span class="search_clear glyphicon glyphicon-remove-circle"></span>
-                    <ul id="search_results" class="dropdown-menu"></ul>
+                    <ul id="search_results" class="dropdown-menu" role="menu"></ul>
                     <div class="input-group-btn">
                         <button class="btn btn-info dropdown-toggle" type="submit">Search</button>
                     </div>
@@ -27,8 +27,9 @@
         </div>
         <div class="col-xs-6">
             <div class="btn-group btn-group-justified">
+                <a class="btn btn-info" type="submit" onclick="changeMode('make_deck')" data-toggle="dropdown">Decks <span class="caret"></span></a>
+                <ul id="deck_list" class="dropdown-menu"></ul>
                 <a class="btn btn-info" type="submit" onclick="changeMode('make_collection')">Collection</a>
-                <a class="btn btn-info" type="submit" onclick="changeMode('make_deck')">Decks</a>
             </div>
         </div>
     </div>

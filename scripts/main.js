@@ -34,7 +34,7 @@ var addToTable = function() {
 };
 
 var liClick = function(id, name, description, hero, category, rarity, race, set, cost, attack, health) {
-    $('#search_results').hide();
+    $('#search_results').show();
 
     if (mode == 'browse') {
         detailAlert(id, name, description, hero, category, rarity, race, set, cost, attack, health);
