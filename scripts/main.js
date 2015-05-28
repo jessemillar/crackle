@@ -99,7 +99,7 @@ $('.search_clear').click(function() {
 
 $(document).mousemove(function(event) {
     $('.card_preview').css({ // The integers are for offset so the image doesn't "cover" the cursor and cause flickering issues
-        'position': 'absolute',
+        'position': 'fixed',
         'left': event.clientX + 12,
         'top': event.clientY - 10
     });
