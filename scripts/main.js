@@ -346,7 +346,7 @@ $('#search').on('focus keyup submit', function(event) {
                     health = parseInt(results[i].health);
                 }
 
-                $('#search_results').append('<li card_id="' + id + '"><a href="#" onclick="liClick(\'' + id + '\', \'' + name + '\', \'' + description + '\', \'' + hero + '\', \'' + category + '\', \'' + rarity + '\', \'' + race + '\', \'' + set + '\', \'' + cost + '\', \'' + attack + '\', \'' + health + '\')"><b>' + results[i].name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + cost + ' mana</a></li>');
+                $('#search_results').append('<li card_id="' + id + '"><a href="#" onclick="liClick(\'' + id + '\', \'' + name + '\', \'' + description + '\', \'' + hero + '\', \'' + category + '\', \'' + rarity + '\', \'' + race + '\', \'' + set + '\', \'' + cost + '\', \'' + attack + '\', \'' + health + '\')">' + results[i].name + '</a></li>');
             }
         } else {
             $('#search_results').append('<li><a href="#">No results found</a></li>');
