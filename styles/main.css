@@ -14,13 +14,18 @@
 }
 
 .search_results li {
+    cursor: pointer;
     border-bottom: solid 1px #DDDDDD;
-
     padding: 12px 35px;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .copyright {
     padding: 50px;
-
     color: #AAAAAA;
 }
