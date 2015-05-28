@@ -92,7 +92,7 @@ var liClick = function(id, name, description, hero, category, rarity, race, set,
                     } else {
                         sweetAlert({
                             title: '<h2 style="margin-top: 50px">Oops...</h2>',
-                            text: 'You already have two ' + name + 's in your deck!',
+                            text: 'You already have two copies of ' + name + ' in your deck!',
                             type: 'error',
                             html: true
                         });
@@ -101,6 +101,47 @@ var liClick = function(id, name, description, hero, category, rarity, race, set,
                     sweetAlert({
                         title: '<h2 style="margin-top: 50px">Oops...</h2>',
                         text: 'You already have 30 cards in your deck!',
+                        type: 'error',
+                        html: true
+                    });
+                }
+            }
+        });
+    } else if (mode == 'collection') {
+        swal({
+            title: '<img src="images/cards/' + id + '.png" />',
+            text: 'Do you want to add a copy of ' + name + ' to your collection?',
+            showCancelButton: true,
+            confirmButtonColor: '#2ECC40',
+            confirmButtonText: 'Add',
+            cancelButtonText: 'Cancel',
+            closeOnConfirm: false,
+            closeOnCancel: true,
+            html: true
+        }, function(isConfirm) {
+            if (isConfirm) {
+                var count = 0;
+
+                for (var i = 0; i < collection.length; i++) {
+                    if (collection[i] == id) {
+                        count++;
+                    }
+                }
+
+                if (count < 2) {
+                    collection.push(id);
+
+                    cellar.save('collection', collection);
+
+                    sweetAlert({
+                        title: '<h2 style="margin-top: 50px">Added</h2>',
+                        type: 'success',
+                        html: true
+                    });
+                } else {
+                    sweetAlert({
+                        title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                        text: 'You already have two copies of ' + name + ' in your collection!',
                         type: 'error',
                         html: true
                     });
