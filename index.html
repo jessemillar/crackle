@@ -4,6 +4,7 @@
     <title>Crackle</title>
     <link href="styles/dependencies/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="styles/dependencies/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/dependencies/sweetalert.css" rel="stylesheet" type="text/css" />
     <link href="styles/main.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width = device-width">
 </head>
@@ -20,7 +21,7 @@
         <div class="col-md-9">
             <form class="search_form">
                 <div class="input-group">
-                    <input id="search" class="search_text form-control" type="text" placeholder="Search">
+                    <input id="search" class="search_text form-control" type="text" placeholder="General Search">
                     <div class="input-group-btn">
                         <button class="btn btn-info" type="submit">Search</button>
                     </div>
@@ -31,10 +32,14 @@
     <div class="row">
         <ul class="search_results"></ul>
     </div>
+    <div class="copyright row">
+        <center>&copy 2015 Jesse Millar </center>
+    </div>
 </body>
 <script type="text/javascript" src="database/all-collectibles.js"></script>
 <script type="text/javascript" src="scripts/dependencies/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="scripts/dependencies/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/dependencies/sweetalert.min.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
 
 </html>
