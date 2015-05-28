@@ -12,6 +12,26 @@
 
 <body onload="init()">
     <img class="card_preview" style="display:none" />
+    <div class="navigation row">
+        <div class="col-xs-6">
+            <form class="search_form">
+                <div class="input-group">
+                    <input id="search" class="search_text form-control" type="text" placeholder="General Search">
+                    <span class="search_clear glyphicon glyphicon-remove-circle"></span>
+                    <ul id="search_results" class="dropdown-menu"></ul>
+                    <div class="input-group-btn">
+                        <button class="btn btn-info dropdown-toggle" type="submit">Search</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-6">
+            <div class="btn-group btn-group-justified">
+                <a class="btn btn-info" type="submit" onclick="changeMode('make_collection')">Collection</a>
+                <a class="btn btn-info" type="submit" onclick="changeMode('make_deck')">Decks</a>
+            </div>
+        </div>
+    </div>
     <div class="row">
         <table class="card_previews" style="width: 100%">
             <tr>
@@ -27,30 +47,11 @@
                 <td>
                     <center><img src="images/cards/8.png" /></center>
                 </td>
+                <td>
+                    <center><img src="images/cards/8.png" /></center>
+                </td>
             </tr>
         </table>
-    </div>
-    <div class="navigation row">
-        <div class="col-md-8">
-            <form class="search_form">
-                <div class="input-group">
-                    <input id="search" class="search_text form-control" type="text" placeholder="General Search">
-                    <span class="search_clear glyphicon glyphicon-remove-circle"></span>
-                    <div class="input-group-btn">
-                        <button class="btn btn-info" type="submit">Search</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-4">
-            <div class="btn-group btn-group-justified">
-                <a class="btn btn-info" type="submit" onclick="changeMode('make_collection')">Collection</a>
-                <a class="btn btn-info" type="submit" onclick="changeMode('make_deck')">Decks</a>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <ul class="search_results"></ul>
     </div>
     <div class="copyright row">
         <center>&copy 2015 Jesse Millar </center>

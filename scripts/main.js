@@ -95,6 +95,11 @@ var detailAlert = function(id, name, description, hero, category, rarity, race, 
 
 $('.search_clear').click(function() {
     $('#search').val('');
+    $('#search_results').hide();
+});
+
+$('#search').on('blur', function() {
+    $('#search_results').hide();
 });
 
 $(document).mousemove(function(event) {
@@ -119,22 +124,28 @@ $('.search_results').on('mouseleave', 'li', function(event) {
     $('.card_preview').hide();
 });
 
-$('.search_form').on('submit', function(event) {
+$('.search_form #search').on('keyup submit', function(event) {
     event.preventDefault();
 
-    $('.search_results').empty(); // Clear the <ul>
+    $('#search_results').empty().show(); // Clear the <ul>
 
     var query = document.getElementById('search').value;
 
     var results = [];
 
+    // for (var i = 0; i < collectibles.cards.length; i++) {
+    //     for (var key in collectibles.cards[i]) {
+    //         if (typeof collectibles.cards[i][key] == 'string') {
+    //             if (collectibles.cards[i][key].toLowerCase().indexOf(query.toLowerCase()) > -1) {
+    //                 results.push(collectibles.cards[i]);
+    //             }
+    //         }
+    //     }
+    // }
+
     for (var i = 0; i < collectibles.cards.length; i++) {
-        for (var key in collectibles.cards[i]) {
-            if (typeof collectibles.cards[i][key] == 'string') {
-                if (collectibles.cards[i][key].toLowerCase().indexOf(query.toLowerCase()) > -1) {
-                    results.push(collectibles.cards[i]);
-                }
-            }
+        if (collectibles.cards[i].name.toLowerCase().indexOf(query.toLowerCase()) > -1) {
+            results.push(collectibles.cards[i]);
         }
     }
 
@@ -175,14 +186,14 @@ $('.search_form').on('submit', function(event) {
                 health = parseInt(results[i].health);
             }
 
-            $('.search_results').append('<li card_id="' + id + '"onclick="liClick(\'' + id + '\', \'' + name + '\', \'' + description + '\', \'' + hero + '\', \'' + category + '\', \'' + rarity + '\', \'' + race + '\', \'' + set + '\', \'' + cost + '\', \'' + attack + '\', \'' + health + '\')"><b>' + results[i].name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + cost + ' mana</li>');
+            $('#search_results').append('<li card_id="' + id + '"onclick="liClick(\'' + id + '\', \'' + name + '\', \'' + description + '\', \'' + hero + '\', \'' + category + '\', \'' + rarity + '\', \'' + race + '\', \'' + set + '\', \'' + cost + '\', \'' + attack + '\', \'' + health + '\')"><a href="#"><b>' + results[i].name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + cost + ' mana</a></li>');
         }
     } else {
-        $('.search_results').append('<li>No results found</li>');
+        $('#search_results').append('<li><a href="#">No results found</a></li>');
     }
 
-    $('.search_results').html( // Alphabetically sort the <ul>
-        $('.search_results').children('li').sort(function(a, b) {
+    $('#search_results').html( // Alphabetically sort the <ul>
+        $('#search_results').children('li').sort(function(a, b) {
             return $(a).text().toUpperCase().localeCompare(
                 $(b).text().toUpperCase());
         })
