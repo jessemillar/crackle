@@ -53,17 +53,24 @@ var populateCollection = function() {
 
     database.sort(sortByMana);
 
-    var rowCount = 0;
+    var rowCount = 0,
+        appendString = '<tr>';
 
     for (var i = 0; i < database.length; i++) {
+        console.log(rowCount);
         if (rowCount < 5) {
-            $('.card_previews').append('<td><center><img src="images/cards/' + database[i].id + '.png" /></center></td>');
+            appendString += '<td><center><img src="images/cards/' + database[i].id + '.png" /></center></td>';
             rowCount++;
         } else {
-            $('.card_previews').append('<tr><td><center><img src="images/cards/' + database[i].id + '.png" /></center></td></tr>');
+            $('.card_previews').append(appendString + '</tr>');
+
+            appendString = '<tr><td><center><img src="images/cards/' + database[i].id + '.png" /></center></td>';
+
             rowCount = 1;
         }
     }
+
+    $('.card_previews').append(appendString + '</tr>'); // Catch the last few cards that didn't make a full row
 };
 
 var changeMode = function(newMode) {
