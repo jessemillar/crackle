@@ -17,9 +17,27 @@ var init = function() {
         deck = cellar.get('deck');
     }
 
+    if (mode == 'collection') {
+        populateCollection();
+    }
+
     displayMode();
 
     document.getElementById('search').focus();
+};
+
+function sortByMana(a, b) {
+    var aMana = a.mana;
+    var bMana = b.mana;
+    return ((aMana < bMana) ? -1 : ((aMana > bMana) ? 1 : 0));
+}
+
+var populateCollection = function() {
+    collection.sort(sortByMana);
+
+    for (var i = 0; i < collection.length; i++) {
+        $('.card_previews').append('<li><center><img src="images/cards/8.png" /></center><li>');
+    }
 };
 
 var changeMode = function(newMode) {
