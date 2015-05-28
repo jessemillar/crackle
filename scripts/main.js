@@ -53,8 +53,16 @@ var populateCollection = function() {
 
     database.sort(sortByMana);
 
+    var rowCount = 0;
+
     for (var i = 0; i < database.length; i++) {
-        $('.card_previews').append('<td><center><img src="images/cards/' + database[i].id + '.png" /></center></td>');
+        if (rowCount < 5) {
+            $('.card_previews').append('<td><center><img src="images/cards/' + database[i].id + '.png" /></center></td>');
+            rowCount++;
+        } else {
+            $('.card_previews').append('<tr><td><center><img src="images/cards/' + database[i].id + '.png" /></center></td></tr>');
+            rowCount = 1;
+        }
     }
 };
 
