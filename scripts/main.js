@@ -57,14 +57,13 @@ var populateCollection = function() {
         appendString = '<tr>';
 
     for (var i = 0; i < database.length; i++) {
-        console.log(rowCount);
         if (rowCount < 5) {
-            appendString += '<td><center><img src="images/cards/' + database[i].id + '.png" /></center></td>';
+            appendString += '<td><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
             rowCount++;
         } else {
             $('.card_previews').append(appendString + '</tr>');
 
-            appendString = '<tr><td><center><img src="images/cards/' + database[i].id + '.png" /></center></td>';
+            appendString = '<tr><td><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
 
             rowCount = 1;
         }
@@ -97,9 +96,38 @@ var displayMode = function() { // Update the buttons' active states to reflect t
     }
 };
 
-var addToTable = function() {
-    console.log($('.card_previews').children('tbody').children('tr').length);
-    console.log($('.card_previews').children('tbody').children('tr').children('td').length);
+var removeCard = function(id, name) {
+    swal({
+        title: '<img src="images/cards/' + id + '.png" />',
+        text: 'Do you want to remove a copy of ' + name + ' from your collection?',
+        showCancelButton: true,
+        confirmButtonColor: '#FF4136',
+        confirmButtonText: 'Remove',
+        cancelButtonText: 'Cancel',
+        closeOnConfirm: false,
+        closeOnCancel: true,
+        html: true
+    }, function(isConfirm) {
+        if (isConfirm) {
+            for (var i = 0; i < collection.length; i++) {
+                if (collection[i] == id) {
+                    collection.splice(i, 1);
+                }
+            }
+
+            cellar.save('collection', collection);
+
+            populateCollection();
+
+            sweetAlert({
+                title: '<h2 style="margin-top: 50px">Removed</h2>',
+                type: 'success',
+                timer: 1000,
+                showConfirmButton: false,
+                html: true
+            });
+        }
+    });
 };
 
 var liClick = function(id, name, description, hero, category, rarity, race, set, cost, attack, health) {
@@ -138,6 +166,8 @@ var liClick = function(id, name, description, hero, category, rarity, race, set,
                             title: '<h2 style="margin-top: 50px">Added</h2>',
                             // text: 'You already have 30 cards in your deck!',
                             type: 'success',
+                            timer: 1000,
+                            showConfirmButton: false,
                             html: true
                         });
                     } else {
@@ -189,6 +219,8 @@ var liClick = function(id, name, description, hero, category, rarity, race, set,
                     sweetAlert({
                         title: '<h2 style="margin-top: 50px">Added</h2>',
                         type: 'success',
+                        timer: 1000,
+                        showConfirmButton: false,
                         html: true
                     });
                 } else {
@@ -248,8 +280,6 @@ $('#search_results').on('mouseleave', 'li', function(event) {
 
 $('#search_results li').click(function(event) {
     event.preventDefault();
-
-    console.log('Clicked');
 });
 
 $('#search').on('focus keyup submit', function(event) {
