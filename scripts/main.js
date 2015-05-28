@@ -2,10 +2,10 @@ var init = function() {
     document.getElementById('search').focus();
 };
 
-var detailAlert = function(id, name, description, card_class, category, rarity, race, set, cost, attack, health) {
+var detailAlert = function(id, name, description, hero, category, rarity, race, set, cost, attack, health) {
     swal({
         title: '<img src="images/cards/' + id + '.png" />',
-        text: '<table style="width:100%"><tr><td><b>Name:</b></td><td>' + name + '</td><td>Description:</td><td>' + description + '</td></tr><tr><td>Class:</td><td>' + card_class + '</td><td>Category:</td><td>' + category + '</td></tr><tr><td>Rarity:</td><td>' + rarity + '</td><td>Race:</td><td>' + race + '</td></tr><tr><td>Set:</td><td>' + set + '</td><td>Mana Cost:</td><td>' + cost + '</td></tr><tr><td>Attack:</td><td>' + attack + '</td><td>Health:</td><td>' + health + '</td></tr></table>',
+        text: '<b>' + name + '</b><br><br><i>' + description + '</i><br><br><table style="width: 100%"><tr><td><b>Class:</b></td><td>' + hero + '</td><td><b>Category:</b></td><td>' + category + '</td></tr><tr><td><b>Rarity:</b></td><td>' + rarity + '</td><td><b>Race:</b></td><td>' + race + '</td></tr><tr><td><b>Set:</b></td><td>' + set + '</td><td><b>Mana Cost:</b></td><td>' + cost + '</td></tr><tr><td><b>Attack:</b></td><td>' + attack + '</td><td><b>Health:</b></td><td>' + health + '</td></tr></table>',
         html: true
     });
 };
@@ -55,22 +55,40 @@ $('.search_form').on('submit', function(event) {
 
     if (results.length > 0) { // If we have results to show
         for (var i = 0; i < results.length; i++) {
-            var attack;
-            var health;
+            var id, name, description, hero, category, rarity, race, set, cost, attack, health;
+
+            id = parseInt(results[i].id);
+            name = results[i].name.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+            description = results[i].description.replace(/[\\"']/g, '\\$&').replace(/\u0000/g, '\\0');
+            hero = results[i].hero;
+            hero = hero.charAt(0).toUpperCase() + hero.slice(1);
+            category = results[i].category;
+            if (category) {
+                category = category.charAt(0).toUpperCase() + category.slice(1);
+            } else {
+                category = 'None';
+            }
+            rarity = results[i].quality;
+            rarity = rarity.charAt(0).toUpperCase() + rarity.slice(1);
+            race = results[i].race;
+            race = race.charAt(0).toUpperCase() + race.slice(1);
+            set = results[i].set;
+            set = set.charAt(0).toUpperCase() + set.slice(1);
+            cost = parseInt(results[i].mana);
 
             if (results[i].attack === null) {
                 attack = 0;
             } else {
-                attack = results[i].attack;
+                attack = parseInt(results[i].attack);
             }
 
             if (results[i].health === null) {
                 health = 0;
             } else {
-                health = results[i].health;
+                health = parseInt(results[i].health);
             }
 
-            $('.search_results').append('<li card_id="' + results[i].id + '"onclick="detailAlert(\'' + results[i].id + '\', \'' + results[i].name + '\', \'' + results[i].description + '\', \'' + results[i].hero + '\', \'' + results[i].category + '\', \'' + results[i].quality + '\', \'' + results[i].race + '\', \'' + results[i].set + '\', \'' + results[i].mana + '\', \'' + results[i].attack + '\', \'' + results[i].health + '\')"><b>' + results[i].name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + results[i].mana + ' mana</li>');
+            $('.search_results').append('<li card_id="' + id + '"onclick="detailAlert(\'' + id + '\', \'' + name + '\', \'' + description + '\', \'' + hero + '\', \'' + category + '\', \'' + rarity + '\', \'' + race + '\', \'' + set + '\', \'' + cost + '\', \'' + attack + '\', \'' + health + '\')"><b>' + name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + cost + ' mana</li>');
         }
     } else {
         $('.search_results').append('<li>No results found</li>');
