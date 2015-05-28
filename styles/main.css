@@ -48,6 +48,21 @@ body {
     min-width: 640px;
 }
 
+.delete_card {
+    display: none;
+
+    font-size: 35px;
+    cursor: pointer;
+    color: #FF4136;
+    opacity: 0.5;
+    z-index: 10;
+}
+
+.delete_card:active {
+    color: #111111;
+    opacity: 1;
+}
+
 .search_clear {
     position: absolute;
     right: 80px;

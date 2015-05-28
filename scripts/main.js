@@ -56,12 +56,12 @@ var populateCollection = function() {
 
     for (var i = 0; i < database.length; i++) {
         if (rowCount < 5) {
-            appendString += '<td><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
+            appendString += '<td><center><div class="delete_card"><span class="glyphicon glyphicon-remove-circle"></span></div><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
             rowCount++;
         } else {
             $('.collection_preview').append(appendString + '</tr>');
 
-            appendString = '<tr><td><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
+            appendString = '<tr><td><center><div class="delete_card"><span class="glyphicon glyphicon-remove-circle"></span></div><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
 
             rowCount = 1;
         }
