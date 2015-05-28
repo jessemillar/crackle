@@ -21,6 +21,11 @@ body,
     overflow-y: scroll;
 }
 
+.card_preview {
+    position: fixed;
+    z-index: 100;
+}
+
 .card_previews img {
     display: block;
     width: 100%;
