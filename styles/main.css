@@ -23,19 +23,20 @@ body {
     z-index: 20;
 }
 
-.card_previews {
+.collection_preview {
     width: 100%;
     table-layout: fixed;
     margin-top: 50px;
 }
 
-.card_previews img {
+.collection_preview img {
     display: block;
     width: 100%;
     height: auto;
     max-width: calc(200px + 50px);
     max-height: calc(303px + 20px);
     padding: 5px 25px;
+    cursor: pointer;
 }
 
 .navigation {

@@ -18,9 +18,7 @@ var init = function() {
         deck = cellar.get('deck');
     }
 
-    if (mode == 'collection') {
-        populateCollection();
-    }
+    populateCollection(); // Populate things even if we can't see it yet
 
     displayMode();
 
@@ -49,7 +47,7 @@ var refreshCollection = function() { // Compare the saved IDs to those in the da
 var populateCollection = function() {
     refreshCollection();
 
-    $('.card_previews').empty(); // Clear the HTML table
+    $('.collection_preview').empty(); // Clear the HTML table
 
     database.sort(sortByMana);
 
@@ -61,7 +59,7 @@ var populateCollection = function() {
             appendString += '<td><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
             rowCount++;
         } else {
-            $('.card_previews').append(appendString + '</tr>');
+            $('.collection_preview').append(appendString + '</tr>');
 
             appendString = '<tr><td><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
 
@@ -69,7 +67,7 @@ var populateCollection = function() {
         }
     }
 
-    $('.card_previews').append(appendString + '</tr>'); // Catch the last few cards that didn't make a full row
+    $('.collection_preview').append(appendString + '</tr>'); // Catch the last few cards that didn't make a full row
 };
 
 var changeMode = function(newMode) {
@@ -82,14 +80,17 @@ var changeMode = function(newMode) {
 
 var displayMode = function() { // Update the buttons' active states to reflect the current mode
     if (mode == 'browse') {
+        $('.collection_preview').hide();
         $('#browse_button').addClass('active');
         $('#decks_button').removeClass('active');
         $('#collection_button').removeClass('active');
     } else if (mode == 'decks') {
+        $('.collection_preview').hide();
         $('#browse_button').removeClass('active');
         $('#decks_button').addClass('active');
         $('#collection_button').removeClass('active');
     } else if (mode == 'collection') {
+        $('.collection_preview').show();
         $('#browse_button').removeClass('active');
         $('#decks_button').removeClass('active');
         $('#collection_button').addClass('active');
