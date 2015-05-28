@@ -1,7 +1,8 @@
 var cellar = new Cellar();
 
 var mode = 'browse',
-    collection = [];
+    collection = [],
+    deck = [];
 
 var init = function() {
     if (cellar.get('mode')) {
@@ -10,6 +11,10 @@ var init = function() {
 
     if (cellar.get('collection')) {
         collection = cellar.get('collection');
+    }
+
+    if (cellar.get('deck')) {
+        deck = cellar.get('deck');
     }
 
     document.getElementById('search').focus();
@@ -26,7 +31,7 @@ var changeMode = function(newMode) {
 var liClick = function(id, name, description, hero, category, rarity, race, set, cost, attack, health) {
     if (mode == 'browse') {
         detailAlert(id, name, description, hero, category, rarity, race, set, cost, attack, health);
-    } else if (mode == 'make_collection') {
+    } else if (mode == 'make_deck') {
         swal({
             title: '<img src="images/cards/' + id + '.png" />',
             text: 'Do you want to add a copy of ' + name + ' to your deck?',
@@ -39,25 +44,23 @@ var liClick = function(id, name, description, hero, category, rarity, race, set,
             html: true
         }, function(isConfirm) {
             if (isConfirm) {
-                if (collection.length < 30) {
+                if (deck.length < 30) {
                     var count = 0;
 
-                    for (var i = 0; i < collection.length; i++) {
-                        if (collection[i] == id) {
+                    for (var i = 0; i < deck.length; i++) {
+                        if (deck[i] == id) {
                             count++;
                         }
                     }
 
                     if (count < 2) {
-                        collection.push(id);
+                        deck.push(id);
 
-                        cellar.save('collection', collection);
+                        cellar.save('deck', deck);
 
-                        swal({
+                        sweetAlert({
                             title: '<h2 style="margin-top: 50px">Added</h2>',
-                            text: '',
-                            timer: 1000,
-                            showConfirmButton: false,
+                            // text: 'You already have 30 cards in your deck!',
                             type: 'success',
                             html: true
                         });
