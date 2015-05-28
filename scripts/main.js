@@ -21,9 +21,15 @@ var init = function() {
 };
 
 var changeMode = function(newMode) {
-    console.log('Changing mode to ' + newMode);
-
     mode = newMode;
+
+    if (mode == 'decks') {
+        $('#decks_button').addClass('active');
+        $('#collection_button').removeClass('active');
+    } else if (mode == 'collection') {
+        $('#decks_button').removeClass('active');
+        $('#collection_button').addClass('active');
+    }
 
     cellar.save('mode', mode);
 };
@@ -38,7 +44,7 @@ var liClick = function(id, name, description, hero, category, rarity, race, set,
 
     if (mode == 'browse') {
         detailAlert(id, name, description, hero, category, rarity, race, set, cost, attack, health);
-    } else if (mode == 'make_deck') {
+    } else if (mode == 'decks') {
         swal({
             title: '<img src="images/cards/' + id + '.png" />',
             text: 'Do you want to add a copy of ' + name + ' to your deck?',
