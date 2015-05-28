@@ -31,6 +31,8 @@ body {
 }
 
 .card_previews {
+    width: 100%;
+    table-layout: fixed;
     margin-top: 50px;
 }
 
@@ -44,7 +46,7 @@ body {
 }
 
 .navigation {
-    position: fixed;
+    position: absolute;
     left: 0;
     top: 0;
     padding: 20px 5px;
@@ -93,6 +95,6 @@ body {
 }
 
 .copyright {
-    padding: 35px;
+    padding: 35px 0;
     color: #AAAAAA;
 }
