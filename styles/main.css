@@ -1,5 +1,9 @@
 html,
-body,
+body {
+    font-family: 'Roboto', sans-serif;
+    min-width: 640px;
+}
+
 .sweet-alert {
     font-family: 'Roboto', sans-serif;
 }
@@ -26,6 +30,10 @@ body,
     z-index: 100;
 }
 
+.card_previews {
+    margin-top: 35px;
+}
+
 .card_previews img {
     display: block;
     width: 100%;
@@ -41,6 +49,7 @@ body,
     top: 0;
     padding: 20px 5px;
     margin: 0;
+    min-width: 640px;
 }
 
 .search_clear {
