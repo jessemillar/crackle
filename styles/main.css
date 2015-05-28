@@ -31,7 +31,7 @@ body {
 }
 
 .card_previews {
-    margin-top: 35px;
+    margin-top: 50px;
 }
 
 .card_previews img {
@@ -39,8 +39,8 @@ body {
     width: 100%;
     height: auto;
     max-width: calc(200px + 70px);
-    max-height: calc(303px + 70px);
-    padding: 35px;
+    max-height: calc(303px + 20px);
+    padding: 10px 35px;
 }
 
 .navigation {
@@ -88,6 +88,6 @@ body {
 }
 
 .copyright {
-    padding: 50px;
+    padding: 35px;
     color: #AAAAAA;
 }

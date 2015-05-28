@@ -28,6 +28,11 @@ var changeMode = function(newMode) {
     cellar.save('mode', mode);
 };
 
+var addToTable = function() {
+    console.log($('.card_previews').children('tbody').children('tr').length);
+    console.log($('.card_previews').children('tbody').children('tr').children('td').length);
+};
+
 var liClick = function(id, name, description, hero, category, rarity, race, set, cost, attack, health) {
     $('#search_results').hide();
 
