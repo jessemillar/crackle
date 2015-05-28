@@ -2,6 +2,14 @@ var init = function() {
     document.getElementById('search').focus();
 };
 
+var detailAlert = function(id, name, cost, attack, health) {
+    swal({
+        title: '<img src="images/cards/' + id + '.png" />',
+        text: 'A custom <span style="color: #F8BB86">html<span> message.',
+        html: true
+    });
+};
+
 $(document).mousemove(function(event) {
     $('.card_preview').css({ // The integers are for offset so the image doesn't "cover" the cursor and cause flickering issues
         'position': 'absolute',
@@ -62,7 +70,7 @@ $('.search_form').on('submit', function(event) {
                 health = results[i].health;
             }
 
-            $('.search_results').append('<li card_id="' + results[i].id + '"><b>' + results[i].name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + results[i].mana + ' mana</li>');
+            $('.search_results').append('<li card_id="' + results[i].id + '"onclick="detailAlert(' + results[i].id + ')"><b>' + results[i].name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + results[i].mana + ' mana</li>');
         }
     } else {
         $('.search_results').append('<li>No results found</li>');
