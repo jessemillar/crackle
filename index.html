@@ -11,14 +11,16 @@
 </head>
 
 <body onload="init()">
-    <img class="card_preview" style="display:none" />
+    <img class="card_preview" style="display:none" width="200" height="303" />
     <div class="navigation">
         <div class="col-xs-6">
             <form class="search_form">
                 <div class="input-group">
-                    <input id="search" class="search_text form-control" type="text" placeholder="General Search">
-                    <span class="search_clear glyphicon glyphicon-remove-circle"></span>
-                    <ul id="search_results" class="dropdown-menu" role="menu"></ul>
+                    <div id="search_elements">
+                        <input id="search" class="search_text form-control" type="text" placeholder="General Search">
+                        <span class="search_clear glyphicon glyphicon-remove-circle"></span>
+                        <ul id="search_results" class="dropdown-menu" role="menu"></ul>
+                    </div>
                     <div class="input-group-btn">
                         <button class="btn btn-info dropdown-toggle" type="submit">Search</button>
                     </div>

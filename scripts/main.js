@@ -106,8 +106,11 @@ $('.search_clear').click(function() {
     $('.card_preview').hide();
 });
 
-$('#search').on('blur', function() {
-    $('.card_preview').hide();
+$(document).click(function(event) { // Close the search results if we click anywhere else
+    if (!$('#search_elements').is($(event.target).parent())) {
+        $('#search_results').hide();
+        $('.card_preview').hide();
+    }
 });
 
 $(document).mousemove(function(event) {
@@ -137,7 +140,7 @@ $('#search_results li').click(function(event) {
     console.log('Clicked');
 });
 
-$('.search_form #search').on('focus keyup submit', function(event) {
+$('#search').on('focus keyup submit', function(event) {
     event.preventDefault();
 
     if (document.getElementById('search').value.length > 0) {
