@@ -1,5 +1,85 @@
+var cellar = new Cellar();
+
+var mode = 'browse',
+    collection = [];
+
 var init = function() {
+    if (cellar.get('mode')) {
+        mode = cellar.get('mode');
+    }
+
+    if (cellar.get('collection')) {
+        collection = cellar.get('collection');
+    }
+
     document.getElementById('search').focus();
+};
+
+var changeMode = function(newMode) {
+    console.log('Changing mode to ' + newMode);
+
+    mode = newMode;
+
+    cellar.save('mode', mode);
+};
+
+var liClick = function(id, name, description, hero, category, rarity, race, set, cost, attack, health) {
+    if (mode == 'browse') {
+        detailAlert(id, name, description, hero, category, rarity, race, set, cost, attack, health);
+    } else if (mode == 'make_collection') {
+        swal({
+            title: '<img src="images/cards/' + id + '.png" />',
+            text: 'Do you want to add a copy of ' + name + ' to your deck?',
+            showCancelButton: true,
+            confirmButtonColor: '#2ECC40',
+            confirmButtonText: 'Add',
+            cancelButtonText: 'Cancel',
+            closeOnConfirm: false,
+            closeOnCancel: true,
+            html: true
+        }, function(isConfirm) {
+            if (isConfirm) {
+                if (collection.length < 30) {
+                    var count = 0;
+
+                    for (var i = 0; i < collection.length; i++) {
+                        if (collection[i] == id) {
+                            count++;
+                        }
+                    }
+
+                    if (count < 2) {
+                        collection.push(id);
+
+                        cellar.save('collection', collection);
+
+                        swal({
+                            title: '<h2 style="margin-top: 50px">Added</h2>',
+                            text: '',
+                            timer: 1000,
+                            showConfirmButton: false,
+                            type: 'success',
+                            html: true
+                        });
+                    } else {
+                        sweetAlert({
+                            title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                            text: 'You already have two ' + name + 's in your deck!',
+                            type: 'error',
+                            html: true
+                        });
+                    }
+                } else {
+                    sweetAlert({
+                        title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                        text: 'You already have 30 cards in your deck!',
+                        type: 'error',
+                        html: true
+                    });
+                }
+            }
+        });
+    }
 };
 
 var detailAlert = function(id, name, description, hero, category, rarity, race, set, cost, attack, health) {
@@ -88,7 +168,7 @@ $('.search_form').on('submit', function(event) {
                 health = parseInt(results[i].health);
             }
 
-            $('.search_results').append('<li card_id="' + id + '"onclick="detailAlert(\'' + id + '\', \'' + name + '\', \'' + description + '\', \'' + hero + '\', \'' + category + '\', \'' + rarity + '\', \'' + race + '\', \'' + set + '\', \'' + cost + '\', \'' + attack + '\', \'' + health + '\')"><b>' + name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + cost + ' mana</li>');
+            $('.search_results').append('<li card_id="' + id + '"onclick="liClick(\'' + id + '\', \'' + name + '\', \'' + description + '\', \'' + hero + '\', \'' + category + '\', \'' + rarity + '\', \'' + race + '\', \'' + set + '\', \'' + cost + '\', \'' + attack + '\', \'' + health + '\')"><b>' + results[i].name + '</b> - ' + attack + ' attack and ' + health + ' health for ' + cost + ' mana</li>');
         }
     } else {
         $('.search_results').append('<li>No results found</li>');
