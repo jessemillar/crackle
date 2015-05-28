@@ -17,21 +17,33 @@ var init = function() {
         deck = cellar.get('deck');
     }
 
+    displayMode();
+
     document.getElementById('search').focus();
 };
 
 var changeMode = function(newMode) {
     mode = newMode;
 
-    if (mode == 'decks') {
+    displayMode();
+
+    cellar.save('mode', mode);
+};
+
+var displayMode = function() { // Update the buttons' active states to reflect the current mode
+    if (mode == 'browse') {
+        $('#browse_button').addClass('active');
+        $('#decks_button').removeClass('active');
+        $('#collection_button').removeClass('active');
+    } else if (mode == 'decks') {
+        $('#browse_button').removeClass('active');
         $('#decks_button').addClass('active');
         $('#collection_button').removeClass('active');
     } else if (mode == 'collection') {
+        $('#browse_button').removeClass('active');
         $('#decks_button').removeClass('active');
         $('#collection_button').addClass('active');
     }
-
-    cellar.save('mode', mode);
 };
 
 var addToTable = function() {
