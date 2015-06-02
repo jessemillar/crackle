@@ -1,5 +1,6 @@
 html,
 body {
+    background-color: #242424;
     font-family: 'Roboto', sans-serif;
     min-width: 640px;
 }
@@ -28,10 +29,9 @@ body {
     display: block;
     width: 100%;
     height: auto;
-    max-width: calc(200px + 50px);
-    max-height: calc(303px + 20px);
-    padding: 5px 25px;
-    cursor: pointer;
+    max-width: 200px;
+    max-height: 303px;
+    cursor: no-drop;
 }
 
 .navigation {
@@ -43,22 +43,8 @@ body {
     min-width: 640px;
 }
 
-.delete_card {
-    display: none;
-
-    font-size: 35px;
-    cursor: pointer;
-    color: #FF4136;
-    opacity: 0.5;
-    z-index: 10;
-}
-
-.delete_card:active {
-    color: #111111;
-    opacity: 1;
-}
-
 .copyright {
     padding: 35px 0;
-    color: #AAAAAA;
+    color: #ffffff;
+    opacity: 0.1;
 }

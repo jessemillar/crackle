@@ -12,32 +12,34 @@
 </head>
 
 <body onload="init()">
-    <div class="navigation">
-        <div class="col-xs-5">
-            <select class="search" placeholder="Search for a card..."></select>
-        </div>
-        <div class="col-xs-7">
-            <div class="btn-group btn-group-justified">
-                <a id="browse_button" class="btn btn-info" type="submit" onclick="changeMode('browse')">Browse</a>
-                <div class="btn-group">
-                    <a id="decks_button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" type="submit" onclick="changeMode('decks')">Decks <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Dropdown link</a></li>
-                        <li><a href="#">Dropdown link</a></li>
-                    </ul>
+    <div class="container">
+        <div class="navigation">
+            <div class="col-xs-5">
+                <select class="search" placeholder="Search for a card..."></select>
+            </div>
+            <div class="col-xs-7">
+                <div class="btn-group btn-group-justified">
+                    <a id="browse_button" class="btn btn-info" type="submit" onclick="changeMode('browse')">Browse</a>
+                    <div class="btn-group">
+                        <a id="decks_button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" type="submit" onclick="changeMode('decks')">Decks <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Dropdown link</a></li>
+                            <li><a href="#">Dropdown link</a></li>
+                        </ul>
+                    </div>
+                    <a id="collection_button" class="btn btn-info" type="submit" onclick="changeMode('collection')">Collection</a>
                 </div>
-                <a id="collection_button" class="btn btn-info" type="submit" onclick="changeMode('collection')">Collection</a>
             </div>
         </div>
-    </div>
-    <table class="collection_preview" style="display: none">
-        <tbody>
-            <tr>
-            </tr>
-        </tbody>
-    </table>
-    <div class="copyright">
-        <center>&copy 2015 Jesse Millar </center>
+        <table class="collection_preview" style="display: none">
+            <tbody>
+                <tr>
+                </tr>
+            </tbody>
+        </table>
+        <div class="copyright">
+            <center>&copy 2015 Jesse Millar </center>
+        </div>
     </div>
 </body>
 <script type="text/javascript" src="database/all-collectibles.js"></script>

@@ -93,22 +93,22 @@ var populateCollection = function() {
     database.sort(sortByMana);
 
     var rowCount = 0,
-        appendString = '<tr>';
+        appendString = '<div class="row">';
 
     for (var i = 0; i < database.length; i++) {
-        if (rowCount < 5) {
-            appendString += '<td><center><div class="delete_card"><span class="glyphicon glyphicon-remove-circle"></span></div><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
+        if (rowCount < 4) {
+            appendString += '<div class="col-sm-3"><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></div>';
             rowCount++;
         } else {
-            $('.collection_preview').append(appendString + '</tr>');
+            $('.collection_preview').append(appendString + '</div>');
 
-            appendString = '<tr><td><center><div class="delete_card"><span class="glyphicon glyphicon-remove-circle"></span></div><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></td>';
+            appendString = '<div class="row"><div class="col-sm-3"><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></div>';
 
             rowCount = 1;
         }
     }
 
-    $('.collection_preview').append(appendString + '</tr>'); // Catch the last few cards that didn't make a full row
+    $('.collection_preview').append(appendString + '</div>'); // Catch the last few cards that didn't make a full row
 };
 
 var changeMode = function(newMode) {
