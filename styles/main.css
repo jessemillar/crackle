@@ -18,14 +18,17 @@ body {
     padding-top: 30px;
 }
 
-.collection_preview img {
+.card_preview img {
     display: block;
-    width: 100%;
-    height: auto;
-    max-width: 200px;
-    max-height: 303px;
     margin: 0 auto;
     cursor: no-drop;
+}
+
+.card_count_banner img {
+    display: block;
+    margin: 0 auto;
+    margin-top: -20px;
+    opacity: 0.2;
 }
 
 .copyright {

@@ -5,7 +5,9 @@ var mode = 'browse',
     database = [], // All information for cards we have saved
     deck = [],
     cardHeight = 303,
-    cardWidth = 200;
+    cardWidth = 200,
+    cardCountWidth = 45,
+    cardCountHeight = 30;
 
 var init = function() {
     if (cellar.get('mode')) {
@@ -68,14 +70,29 @@ var populateSearch = function() {
     });
 }
 
-function sortByMana(a, b) {
+var sortByManaAndName = function(a, b) {
     var aMana = a.mana;
     var bMana = b.mana;
     return ((aMana < bMana) ? -1 : ((aMana > bMana) ? 1 : 0));
 }
 
+var sortByMana = function(a, b) {
+    var aMana = a.mana;
+    var bMana = b.mana;
+    return ((aMana < bMana) ? -1 : ((aMana > bMana) ? 1 : 0));
+}
+
+var sortByName = function(a, b) {
+    var aName = a.name;
+    var bName = b.name;
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
+}
+
 var refreshCollection = function() { // Compare the saved IDs to those in the database to get all the card info
     database = []; // Wipe what we had
+
+    collection.sort(sortByManaAndName);
+    cellar.save('collection', collection);
 
     for (var i = 0; i < collection.length; i++) {
         for (var j = 0; j < collectibles.cards.length; j++) {
@@ -92,20 +109,30 @@ var populateCollection = function() {
 
     $('.collection_preview').empty(); // Clear the HTML table
 
-    database.sort(sortByMana);
+    database.sort(sortByManaAndName);
 
     var rowCount = 0,
         appendString = '<div class="row">';
 
     for (var i = 0; i < database.length; i++) {
         if (rowCount < 4) {
-            appendString += '<div class="col-sm-3"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /></div>';
+            if (typeof database[i + 1] !== 'undefined' && database[i].id == database[i + 1].id) {
+                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div>';
+                i++;
+            } else {
+                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /></div></div>';
+            }
+
             rowCount++;
         } else {
             $('.collection_preview').append(appendString + '</div>');
 
-            appendString = '<div class="row"><div class="col-sm-3"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /></div>';
-
+            if (typeof database[i + 1] !== 'undefined' && database[i].id == database[i + 1].id) {
+                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /></div></div>';
+                i++
+            } else {
+                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div></div>';
+            }
             rowCount = 1;
         }
     }
@@ -159,6 +186,7 @@ var removeCard = function(id, name) {
                 }
             }
 
+            collection.sort(sortByManaAndName);
             cellar.save('collection', collection);
 
             populateCollection();
@@ -277,6 +305,7 @@ var cardSelect = function(card) {
 
                     populateCollection();
 
+                    collection.sort(sortByManaAndName);
                     cellar.save('collection', collection);
 
                     sweetAlert({
