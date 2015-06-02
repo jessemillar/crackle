@@ -97,12 +97,12 @@ var populateCollection = function() {
 
     for (var i = 0; i < database.length; i++) {
         if (rowCount < 4) {
-            appendString += '<div class="col-sm-3"><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></div>';
+            appendString += '<div class="col-sm-3"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></div>';
             rowCount++;
         } else {
             $('.collection_preview').append(appendString + '</div>');
 
-            appendString = '<div class="row"><div class="col-sm-3"><center><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></center></div>';
+            appendString = '<div class="row"><div class="col-sm-3"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name + '\')" src="images/cards/' + database[i].id + '.png" /></div>';
 
             rowCount = 1;
         }

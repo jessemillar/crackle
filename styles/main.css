@@ -9,20 +9,9 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.sweet-alert h2 {
-    padding: 0;
-    margin-top: -22px;
-    margin-bottom: 4px;
-}
-
-.sweet-alert table {
-    line-height: 1.5em;
-}
-
-.collection_preview {
-    width: 100%;
-    table-layout: fixed;
-    margin-top: 50px;
+.navigation {
+    padding-top: 30px;
+    min-width: 640px;
 }
 
 .collection_preview img {
@@ -31,16 +20,8 @@ body {
     height: auto;
     max-width: 200px;
     max-height: 303px;
+    margin: 0 auto;
     cursor: no-drop;
-}
-
-.navigation {
-    position: absolute;
-    left: 0;
-    top: 0;
-    padding: 20px 5px;
-    margin: 0;
-    min-width: 640px;
 }
 
 .copyright {
