@@ -140,7 +140,7 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
 
 var removeCard = function(id, name) {
     swal({
-        title: '<img src="images/cards/' + id + '.png" />',
+        title: '<img src="images/cards/' + id + '.png" width="200" height="303" />',
         text: 'Do you want to remove a copy of ' + name + ' from your collection?',
         showCancelButton: true,
         confirmButtonColor: '#FF4136',
@@ -193,12 +193,12 @@ var parsePotentialNull = function(number) {
 var cardSelect = function(card) {
     if (mode == 'browse') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" />',
+            title: '<img src="images/cards/' + card.id + '.png" width="200" height="303" />',
             html: true
         });
     } else if (mode == 'decks') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" />',
+            title: '<img src="images/cards/' + card.id + '.png" width="200" height="303" />',
             text: 'Do you want to add a copy of ' + card.name + ' to your deck?',
             showCancelButton: true,
             confirmButtonColor: '#2ECC40',
@@ -251,7 +251,7 @@ var cardSelect = function(card) {
         });
     } else if (mode == 'collection') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" />',
+            title: '<img src="images/cards/' + card.id + '.png" width="200" height="303" />',
             text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
             showCancelButton: true,
             confirmButtonColor: '#2ECC40',
