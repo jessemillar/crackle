@@ -5,6 +5,7 @@
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
     <link href="styles/dependencies/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="styles/dependencies/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/dependencies/selectize.css" rel="stylesheet" type="text/css" />
     <link href="styles/dependencies/sweetalert.css" rel="stylesheet" type="text/css" />
     <link href="styles/main.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width = device-width">
@@ -14,18 +15,7 @@
     <img class="card_preview" style="display: none" width="200" height="303" />
     <div class="navigation">
         <div class="col-xs-5">
-            <form class="search_form">
-                <div class="input-group">
-                    <div id="search_elements">
-                        <input id="search" class="search_text form-control" type="text" placeholder="General Search">
-                        <span class="search_clear glyphicon glyphicon-remove-circle"></span>
-                        <ul id="search_results" class="dropdown-menu" role="menu"></ul>
-                    </div>
-                    <div class="input-group-btn">
-                        <button class="btn btn-info dropdown-toggle" type="submit">Search</button>
-                    </div>
-                </div>
-            </form>
+            <select id="search-cards" placeholder="Search for a card..."></select>
         </div>
         <div class="col-xs-7">
             <div class="btn-group btn-group-justified">
@@ -54,6 +44,7 @@
 <script type="text/javascript" src="database/all-collectibles.js"></script>
 <script type="text/javascript" src="scripts/dependencies/jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="scripts/dependencies/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/dependencies/selectize.min.js"></script>
 <script type="text/javascript" src="scripts/dependencies/sweetalert.min.js"></script>
 <script type="text/javascript" src="scripts/dependencies/pantry.min.js"></script>
 <script type="text/javascript" src="scripts/main.js"></script>
