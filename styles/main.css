@@ -2,7 +2,6 @@ html,
 body {
     background-color: #242424;
     font-family: 'Roboto', sans-serif;
-    min-width: 640px;
 }
 
 .sweet-alert {
@@ -12,12 +11,11 @@ body {
 .sweet-alert h2 {
     padding: 0;
     margin-top: -22px;
-    margin-bottom: 4px;
+    margin-bottom: 5px;
 }
 
 .navigation {
     padding-top: 30px;
-    min-width: 640px;
 }
 
 .collection_preview img {
