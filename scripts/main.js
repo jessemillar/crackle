@@ -194,7 +194,6 @@ var cardSelect = function(card) {
     if (mode == 'browse') {
         swal({
             title: '<img src="images/cards/' + card.id + '.png" />',
-            text: '<b>' + card.name + '</b><br><br><i>' + card.description + '</i><br><br><table style="width: 100%"><tr><td><b>Class:</b></td><td>' + capitalizeString(card.hero) + '</td><td><b>Category:</b></td><td>' + capitalizeString(card.category) + '</td></tr><tr><td><b>Rarity:</b></td><td>' + capitalizeString(card.quality) + '</td><td><b>Race:</b></td><td>' + capitalizeString(card.race) + '</td></tr><tr><td><b>Set:</b></td><td>' + capitalizeString(card.set) + '</td><td><b>Mana Cost:</b></td><td>' + card.mana + '</td></tr><tr><td><b>Attack:</b></td><td>' + parsePotentialNull(card.attack) + '</td><td><b>Health:</b></td><td>' + parsePotentialNull(card.health) + '</td></tr></table>',
             html: true
         });
     } else if (mode == 'decks') {
