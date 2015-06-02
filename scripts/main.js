@@ -47,8 +47,8 @@ var populateSearch = function() {
         }
     })
 
-    $('#search-cards').selectize({
-        maxItems: 1,
+    $('.search').selectize({
+        maxItems: '1',
         valueField: 'id',
         labelField: 'title',
         searchField: 'title',
@@ -58,6 +58,7 @@ var populateSearch = function() {
             for (var i = 0; i < collectibles.cards.length; i++) {
                 if (collectibles.cards[i].id == cardId) {
                     cardSelect(collectibles.cards[i]);
+                    this.clear();
                     break;
                 }
             }
