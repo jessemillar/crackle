@@ -3,7 +3,9 @@ var cellar = new Cellar();
 var mode = 'browse',
     collection = [], // Just IDs
     database = [], // All information for cards we have saved
-    deck = [];
+    deck = [],
+    cardHeight = 303,
+    cardWidth = 200;
 
 var init = function() {
     if (cellar.get('mode')) {
@@ -140,7 +142,7 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
 
 var removeCard = function(id, name) {
     swal({
-        title: '<img src="images/cards/' + id + '.png" width="200" height="303" />',
+        title: '<img src="images/cards/' + id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
         text: 'Do you want to remove a copy of ' + name + ' from your collection?',
         showCancelButton: true,
         confirmButtonColor: '#FF4136',
@@ -193,12 +195,12 @@ var parsePotentialNull = function(number) {
 var cardSelect = function(card) {
     if (mode == 'browse') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" width="200" height="303" />',
+            title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
             html: true
         });
     } else if (mode == 'decks') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" width="200" height="303" />',
+            title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
             text: 'Do you want to add a copy of ' + card.name + ' to your deck?',
             showCancelButton: true,
             confirmButtonColor: '#2ECC40',
@@ -251,7 +253,7 @@ var cardSelect = function(card) {
         });
     } else if (mode == 'collection') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" width="200" height="303" />',
+            title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
             text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
             showCancelButton: true,
             confirmButtonColor: '#2ECC40',
