@@ -2,7 +2,6 @@ html,
 body {
     color: #111111;
     background-color: #242424;
-    background-image: url('../images/backgrounds/browse.png');
     background-repeat: no-repeat;
     background-size: 550px 550px;
     background-attachment: fixed;

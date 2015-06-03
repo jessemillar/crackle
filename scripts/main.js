@@ -136,16 +136,19 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
         $('#browse_button').addClass('active');
         $('#decks_button').removeClass('active');
         $('#collection_button').removeClass('active');
+        document.body.style.backgroundImage = "url('images/backgrounds/browse.png')";
     } else if (mode == 'decks') {
         $('.collection_preview').hide();
         $('#browse_button').removeClass('active');
         $('#decks_button').addClass('active');
         $('#collection_button').removeClass('active');
+        document.body.style.backgroundImage = "url('images/backgrounds/decks.png')";
     } else if (mode == 'collection') {
         $('.collection_preview').show();
         $('#browse_button').removeClass('active');
         $('#decks_button').removeClass('active');
         $('#collection_button').addClass('active');
+        document.body.style.backgroundImage = "url('images/backgrounds/collection.png')";
     }
 };
 
