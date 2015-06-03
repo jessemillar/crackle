@@ -5,7 +5,15 @@ var fs = require('fs'),
 var totalCards = 0,
     downloadedCards = 0;
 
-fs.mkdir('cards');
+fs.rmdir('cards', function() {
+    fs.mkdir('cards', function() {
+        loopThrough('Basic');
+        loopThrough('Classic');
+        loopThrough('Blackrock Mountain');
+        loopThrough('Goblins vs Gnomes');
+        loopThrough('Curse of Naxxramas');
+    });
+})
 
 var download = function(uri, filename, callback) {
     request.head(uri, function(err, res, body) {
@@ -25,8 +33,3 @@ var loopThrough = function(setName) {
         }
     }
 }
-
-loopThrough('Basic');
-loopThrough('Classic');
-loopThrough('Goblins vs Gnomes');
-loopThrough('Curse of Naxxramas');

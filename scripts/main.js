@@ -1,4 +1,8 @@
+console.log(collectibles);
+
 var cellar = new Cellar();
+
+var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Goblins vs Gnomes']
 
 var mode = 'browse',
     collection = [],
