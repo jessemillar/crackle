@@ -1,14 +1,13 @@
-console.log(collectibles);
+// console.log(collectibles);
 
 var cellar = new Cellar();
 
-var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Goblins vs Gnomes']
-
-var mode = 'browse',
+var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Goblins vs Gnomes'],
+    mode = 'browse',
     collection = [],
     decks = [],
-    cardHeight = 303,
-    cardWidth = 200,
+    cardHeight = 400,
+    cardWidth = 264,
     cardCountWidth = 45,
     cardCountHeight = 30;
 
@@ -35,13 +34,17 @@ var init = function() {
 var populateSearch = function() {
     var cards = [];
 
-    for (var i = 0; i < collectibles.cards.length; i++) {
-        var card = {
-            id: collectibles.cards[i].id,
-            title: collectibles.cards[i].name
-        };
+    for (var i = 0; i < sets.length; i++) {
+        for (var j = 0; j < collectibles[sets[i]].length; j++) {
+            if (collectibles[sets[i]][j].collectible == true) {
+                var card = {
+                    id: collectibles[sets[i]][j].id,
+                    title: collectibles[sets[i]][j].name
+                };
 
-        cards.push(card);
+                cards.push(card);
+            }
+        }
     }
 
     cards.sort(function(a, b) { // Alphabetically sort
@@ -62,11 +65,13 @@ var populateSearch = function() {
         options: cards,
         create: false,
         onChange: function(cardId, $item) {
-            for (var i = 0; i < collectibles.cards.length; i++) {
-                if (collectibles.cards[i].id == cardId) {
-                    cardSelect(collectibles.cards[i]);
-                    this.clear();
-                    break;
+            for (var i = 0; i < sets.length; i++) {
+                for (var j = 0; j < collectibles[sets[i]].length; j++) {
+                    if (collectibles[sets[i]][j].id == cardId) {
+                        cardSelect(collectibles[sets[i]][j]);
+                        this.clear();
+                        break;
+                    }
                 }
             }
         }
