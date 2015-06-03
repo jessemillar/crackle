@@ -8,8 +8,8 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
     decks = [],
     cardHeight = 400,
     cardWidth = 264,
-    cardCountWidth = 45,
-    cardCountHeight = 30,
+    cardCountWidth = 64,
+    cardCountHeight = 43,
     cardsPerRow = 4;
 
 var init = function() {
