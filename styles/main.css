@@ -2,7 +2,33 @@ html,
 body {
     color: #111111;
     background-color: #242424;
+    background-image: url('../images/backgrounds/browse.png');
+    background-repeat: no-repeat;
+    background-size: 550px 550px;
+    background-attachment: fixed;
+    background-position: center;
     font-family: 'Roboto', sans-serif;
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    /* Negative indent footer by it's height */
+    
+    margin: 0 auto -60px;
+}
+
+.push,
+.footer {
+    height: 60px;
+}
+
+.footer {
+    color: #ffffff;
+    padding: 25px 0;
+    opacity: 0.1;
 }
 
 .sweet-alert {
@@ -35,6 +61,10 @@ body {
 
 .card_preview img {
     display: block;
+    width: 100%;
+    max-width: 264px;
+    /* This needs to match the variable in main.js */
+    
     margin: 0 auto;
     cursor: no-drop;
 }
@@ -44,10 +74,4 @@ body {
     margin: 0 auto;
     margin-top: -20px;
     opacity: 0.2;
-}
-
-.copyright {
-    padding: 35px 0;
-    color: #ffffff;
-    opacity: 0.1;
 }

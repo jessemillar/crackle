@@ -9,7 +9,8 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
     cardHeight = 400,
     cardWidth = 264,
     cardCountWidth = 45,
-    cardCountHeight = 30;
+    cardCountHeight = 30,
+    cardsPerRow = 4;
 
 var init = function() {
     if (cellar.get('mode')) {
@@ -70,7 +71,7 @@ var populateSearch = function() {
                     if (collectibles[sets[i]][j].id == cardId) {
                         cardSelect(collectibles[sets[i]][j]);
                         this.clear();
-                        break;
+                        return;
                     }
                 }
             }
@@ -78,65 +79,47 @@ var populateSearch = function() {
     });
 };
 
-var sortByMana = function(a, b) {
-    if (a.mana < b.mana) {
+var sortByCost = function(a, b) {
+    if (a.cost < b.cost) {
         return -1;
-    } else if (a.mana > b.mana) {
+    } else if (a.cost > b.cost) {
         return 1;
     } else {
         return 0;
     }
 };
 
-var refreshCollection = function() { // Compare the saved IDs to those in the collection to get all the card info
-    collection = []; // Wipe what we had
-
-    cellar.save('collection', collection);
-
-    for (var i = 0; i < collection.length; i++) {
-        for (var j = 0; j < collectibles.cards.length; j++) {
-            if (collection[i] == collectibles.cards[j].id) {
-                collection.push(collectibles.cards[j]);
-                break;
-            }
-        }
-    }
-
-    collection.sort(sortByMana);
-};
-
 var populateCollection = function() {
-    refreshCollection();
+    collection.sort(sortByCost);
 
     $('.collection_preview').empty(); // Clear the HTML table
 
-    var rowCount = 0,
+    var columnCount = 0,
         appendString = '<div class="row">';
 
     for (var i = 0; i < collection.length; i++) {
-        if (rowCount < 4) {
-            if (typeof collection[i + 1] !== 'undefined' && collection[i].id == collection[i + 1].id) {
-                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + collection[i].id + ', \'' + collection[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div>';
-                i++;
+        if (columnCount < cardsPerRow) {
+            if (collection[i].count == 2) {
+                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div>';
             } else {
-                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + collection[i].id + ', \'' + collection[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
+                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             }
 
-            rowCount++;
-        } else {
+            columnCount++;
+        } else { // New row
             $('.collection_preview').append(appendString + '</div>');
 
-            if (typeof collection[i + 1] !== 'undefined' && collection[i].id == collection[i + 1].id) {
-                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + collection[i].id + ', \'' + collection[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
-                i++
+            if (collection[i].count == 2) {
+                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             } else {
-                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + collection[i].id + ', \'' + collection[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div></div>';
+                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div></div>';
             }
-            rowCount = 1;
+
+            columnCount = 1;
         }
     }
 
-    $('.collection_preview').append(appendString + '</div>'); // Catch the last few cards that didn't make a full row
+    $('.collection_preview').append(appendString + '</div>'); // Catch the last few cards that didn't make a full row and append everything
 };
 
 var changeMode = function(newMode) {
@@ -166,10 +149,73 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
     }
 };
 
-var removeCard = function(id, name) {
+var addCard = function(card) {
     swal({
-        title: '<img src="images/cards/' + id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
-        text: 'Do you want to remove a copy of ' + name + ' from your collection?',
+        title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
+        text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
+        showCancelButton: true,
+        confirmButtonColor: '#2ECC40',
+        confirmButtonText: 'Add',
+        cancelButtonText: 'Cancel',
+        closeOnConfirm: false,
+        closeOnCancel: true,
+        html: true
+    }, function(isConfirm) {
+        if (isConfirm) {
+            for (var i = 0; i < collection.length; i++) {
+                if (collection[i].id == card.id) { // If we already have the card in our collection
+                    if (collection[i].count == 2) {
+                        sweetAlert({
+                            title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                            text: 'You already have two copies of ' + card.name + ' in your collection!',
+                            type: 'error',
+                            html: true
+                        });
+
+                        return;
+                    } else if (!collection[i].count) {
+                        collection[i].count = 2;
+                        populateCollection();
+                        cellar.save('collection', collection);
+                        alertSuccess();
+
+                        return;
+                    }
+                }
+            }
+
+            collection.push(card);
+            populateCollection();
+            cellar.save('collection', collection);
+            alertSuccess();
+        }
+    });
+};
+
+var alertSuccess = function() {
+    sweetAlert({
+        title: '<h2 style="margin-top: 50px">Added</h2>',
+        type: 'success',
+        timer: 1000,
+        showConfirmButton: false,
+        html: true
+    });
+}
+
+var removeCard = function(cardId) {
+    var card;
+
+    for (var i = 0; i < sets.length; i++) {
+        for (var j = 0; j < collectibles[sets[i]].length; j++) {
+            if (collectibles[sets[i]][j].id == cardId) {
+                card = collectibles[sets[i]][j];
+            }
+        }
+    }
+
+    swal({
+        title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
+        text: 'Do you want to remove a copy of ' + card.name + ' from your collection?',
         showCancelButton: true,
         confirmButtonColor: '#FF4136',
         confirmButtonText: 'Remove',
@@ -180,8 +226,12 @@ var removeCard = function(id, name) {
     }, function(isConfirm) {
         if (isConfirm) {
             for (var i = 0; i < collection.length; i++) {
-                if (collection[i] == id) {
-                    collection.splice(i, 1);
+                if (collection[i].id == cardId) {
+                    if (collection[i].count && collection[i].count == 2) {
+                        collection[i].count--;
+                    } else {
+                        collection.splice(i, 1);
+                    }
                 }
             }
 
@@ -278,49 +328,6 @@ var cardSelect = function(card) {
             }
         });
     } else if (mode == 'collection') {
-        swal({
-            title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
-            text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
-            showCancelButton: true,
-            confirmButtonColor: '#2ECC40',
-            confirmButtonText: 'Add',
-            cancelButtonText: 'Cancel',
-            closeOnConfirm: false,
-            closeOnCancel: true,
-            html: true
-        }, function(isConfirm) {
-            if (isConfirm) {
-                var count = 0;
-
-                for (var i = 0; i < collection.length; i++) {
-                    if (collection[i] == card.id) {
-                        count++;
-                    }
-                }
-
-                if (count < 2) {
-                    collection.push(card.id);
-
-                    populateCollection();
-
-                    cellar.save('collection', collection);
-
-                    sweetAlert({
-                        title: '<h2 style="margin-top: 50px">Added</h2>',
-                        type: 'success',
-                        timer: 1000,
-                        showConfirmButton: false,
-                        html: true
-                    });
-                } else {
-                    sweetAlert({
-                        title: '<h2 style="margin-top: 50px">Oops...</h2>',
-                        text: 'You already have two copies of ' + card.name + ' in your collection!',
-                        type: 'error',
-                        html: true
-                    });
-                }
-            }
-        });
+        addCard(card);
     }
 };

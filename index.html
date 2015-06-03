@@ -8,34 +8,37 @@
     <link href="styles/dependencies/selectize.css" rel="stylesheet" type="text/css" />
     <link href="styles/dependencies/sweetalert.css" rel="stylesheet" type="text/css" />
     <link href="styles/main.css" rel="stylesheet" type="text/css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
 </head>
 
 <body onload="init()">
-    <div class="container">
-        <div class="row navigation">
-            <div class="col-sm-5">
-                <select class="search" placeholder="Search for a card..."></select>
-            </div>
-            <div class="col-sm-7">
-                <div class="btn-group btn-group-justified">
-                    <a id="browse_button" class="btn btn-info" type="submit" onclick="changeMode('browse')">Browse</a>
-                    <div class="btn-group">
-                        <a id="decks_button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" type="submit" onclick="changeMode('decks')">Decks <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">Dropdown link</a></li>
-                            <li><a href="#">Dropdown link</a></li>
-                        </ul>
+    <div class="wrap">
+        <div class="container">
+            <div class="row navigation">
+                <div class="col-sm-5">
+                    <select class="search" placeholder="Search for a card..."></select>
+                </div>
+                <div class="col-sm-7">
+                    <div class="btn-group btn-group-justified">
+                        <a id="browse_button" class="btn btn-info" type="submit" onclick="changeMode('browse')">Browse</a>
+                        <div class="btn-group">
+                            <a id="decks_button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" type="submit" onclick="changeMode('decks')">Decks <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Dropdown link</a></li>
+                                <li><a href="#">Dropdown link</a></li>
+                            </ul>
+                        </div>
+                        <a id="collection_button" class="btn btn-info" type="submit" onclick="changeMode('collection')">Collection</a>
                     </div>
-                    <a id="collection_button" class="btn btn-info" type="submit" onclick="changeMode('collection')">Collection</a>
                 </div>
             </div>
+            <div class="row collection_preview" style="display: none">
+            </div>
         </div>
-        <div class="row collection_preview" style="display: none">
-        </div>
-        <div class="row copyright">
-            <center>&copy 2015 Jesse Millar </center>
-        </div>
+        <div class="push"></div>
+    </div>
+    <div class="footer">
+        <center>&copy 2015 Jesse Millar </center>
     </div>
 </body>
 <script type="text/javascript" src="database/AllSets.js"></script>
