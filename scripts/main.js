@@ -1,9 +1,8 @@
 var cellar = new Cellar();
 
 var mode = 'browse',
-    collection = [], // Just IDs
-    database = [], // All information for cards we have saved
-    deck = [],
+    collection = [],
+    decks = [],
     cardHeight = 303,
     cardWidth = 200,
     cardCountWidth = 45,
@@ -80,21 +79,21 @@ var sortByMana = function(a, b) {
     }
 };
 
-var refreshCollection = function() { // Compare the saved IDs to those in the database to get all the card info
-    database = []; // Wipe what we had
+var refreshCollection = function() { // Compare the saved IDs to those in the collection to get all the card info
+    collection = []; // Wipe what we had
 
     cellar.save('collection', collection);
 
     for (var i = 0; i < collection.length; i++) {
         for (var j = 0; j < collectibles.cards.length; j++) {
             if (collection[i] == collectibles.cards[j].id) {
-                database.push(collectibles.cards[j]);
+                collection.push(collectibles.cards[j]);
                 break;
             }
         }
     }
 
-    database.sort(sortByMana);
+    collection.sort(sortByMana);
 };
 
 var populateCollection = function() {
@@ -105,24 +104,24 @@ var populateCollection = function() {
     var rowCount = 0,
         appendString = '<div class="row">';
 
-    for (var i = 0; i < database.length; i++) {
+    for (var i = 0; i < collection.length; i++) {
         if (rowCount < 4) {
-            if (typeof database[i + 1] !== 'undefined' && database[i].id == database[i + 1].id) {
-                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div>';
+            if (typeof collection[i + 1] !== 'undefined' && collection[i].id == collection[i + 1].id) {
+                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + collection[i].id + ', \'' + collection[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div>';
                 i++;
             } else {
-                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /></div></div>';
+                appendString += '<div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + collection[i].id + ', \'' + collection[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             }
 
             rowCount++;
         } else {
             $('.collection_preview').append(appendString + '</div>');
 
-            if (typeof database[i + 1] !== 'undefined' && database[i].id == database[i + 1].id) {
-                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /></div></div>';
+            if (typeof collection[i + 1] !== 'undefined' && collection[i].id == collection[i + 1].id) {
+                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + collection[i].id + ', \'' + collection[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
                 i++
             } else {
-                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + database[i].id + ', \'' + database[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + database[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div></div>';
+                appendString = '<div class="row"><div class="col-sm-3"><div class="card_preview"><img onclick="removeCard(' + collection[i].id + ', \'' + collection[i].name.replace(/'/g, '&rsquo;') + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardCountWidth + '" height="' + cardCountHeight + '" /></div></div></div>';
             }
             rowCount = 1;
         }

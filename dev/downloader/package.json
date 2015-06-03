@@ -1,0 +1,9 @@
+{
+  "name": "Downloader",
+  "description": "Download card images from Hearthhead",
+  "version": "0.0.1",
+  "devDependencies": {},
+  "dependencies": {
+    "request": "^2.57.0"
+  }
+}
