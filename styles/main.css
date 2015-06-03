@@ -1,5 +1,6 @@
 html,
 body {
+    color: #111111;
     background-color: #242424;
     font-family: 'Roboto', sans-serif;
 }
@@ -16,6 +17,20 @@ body {
 
 .navigation {
     padding-top: 30px;
+}
+
+.selectize-input,
+.selectize-input input {
+    line-height: 16px;
+}
+
+.selectize-dropdown-content {
+    max-height: 350px;
+}
+
+.selectize-dropdown-content .active {
+    background-color: #7FDBFF;
+    color: #111111;
 }
 
 .card_preview img {
