@@ -15,21 +15,20 @@
     <div class="wrap">
         <div class="container">
             <div class="row navigation">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <select class="search" placeholder="Search for a card..."></select>
                 </div>
-                <div class="col-sm-7">
-                    <div class="btn-group btn-group-justified">
-                        <a id="browse_button" class="btn btn-info" type="submit" onclick="changeMode('browse')">Browse</a>
-                        <div class="btn-group">
-                            <a id="decks_button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" type="submit" onclick="changeMode('decks')">Decks <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">Dropdown link</a></li>
-                                <li><a href="#">Dropdown link</a></li>
-                            </ul>
-                        </div>
-                        <a id="collection_button" class="btn btn-info" type="submit" onclick="changeMode('collection')">Collection</a>
-                    </div>
+                <div class="col-sm-2">
+                    <button id="export_button" class="btn" type="submit" onclick="changeMode('browse')">Browse</button>
+                </div>
+                <div class="col-sm-2">
+                    <button id="export_button" class="btn" type="submit" onclick="changeMode('deck')">Deck</button>
+                </div>
+                <div class="col-sm-2">
+                    <button id="export_button" class="btn" type="submit" onclick="changeMode('collection')">Collection</button>
+                </div>
+                <div class="col-sm-2">
+                    <button id="export_button" class="btn" type="submit" onclick="exportData()">Export</button>
                 </div>
             </div>
             <div class="row collection_preview" style="display: none">

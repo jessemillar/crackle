@@ -1,15 +1,18 @@
-// console.log(collectibles);
+// console.log(database);
 
 var cellar = new Cellar();
+
+swal.setDefaults({
+    animation: false
+});
 
 var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Goblins vs Gnomes'],
     mode = 'browse',
     collection = [],
     decks = [],
-    cardHeight = 400,
-    cardWidth = 264,
-    cardCountHeight = 65,
-    cardsPerRow = 4;
+    cardWidth = 240, // Helps get the size of the Sweetalert correct
+    cardHeight = Math.round(cardWidth * 1.51), // Helps get the size of the Sweetalert correct by calculating based on the correct ratio
+    cardsPerRow = 4; // Only certain numbers work since we have a total width of 12 columns
 
 var init = function() {
     if (cellar.get('mode')) {
@@ -24,22 +27,144 @@ var init = function() {
         deck = cellar.get('deck');
     }
 
-    populateCollection(); // Populate things even if we can't see it yet
+    checkUrl();
 
+    if (collection.length > 0) {
+        populateCollection(); // Populate things even if we can't see it yet
+    }
+
+    populateDecks(); // Load the decks we have saved
     populateSearch();
 
     updateModeButtons();
+};
+
+var getUrlParameter = function(param) {
+    var url = window.location.search.substring(1),
+        variables = url.split('&');
+
+    for (var i = 0; i < variables.length; i++) {
+        var params = variables[i].split('=');
+
+        if (params[0] == param) {
+            return params[1];
+        }
+    }
+};
+
+var checkUrl = function() {
+    if (getUrlParameter('type')) {
+        if (getUrlParameter('type').toLowerCase() == 'collection') {
+            swal({
+                title: '',
+                text: 'Do you want to load this collection?',
+                showCancelButton: true,
+                confirmButtonText: 'Load',
+                cancelButtonText: 'Cancel',
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function(isConfirm) {
+                if (isConfirm) {
+                    var array = JSON.parse(decodeURI(getUrlParameter('cards'))),
+                        collection = []; // Clear our current collection (maybe backup later on)
+
+                    for (var i = 0; i < array.length; i++) {
+                        for (var j = 0; j < sets.length; j++) {
+                            for (var k = 0; k < database[sets[j]].length; k++) {
+                                if (database[sets[j]][k].id == array[i].id) {
+                                    var card = database[sets[j]][k];
+                                    card.count = array[i].count;
+
+                                    collection.push(card);
+
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    cellar.save('collection', collection);
+                    populateCollection();
+                    changeMode('collection');
+
+                    timedAlert('Loaded', 'success', function() {
+                        location.assign(window.location.href.split('?')[0]);
+                    });
+                }
+            });
+        } else if (getUrlParameter('type').toLowerCase() == 'deck') {
+            swal({
+                title: '',
+                text: 'Do you want to load the deck "' + getUrlParameter('name') + '"?',
+                showCancelButton: true,
+                confirmButtonText: 'Load',
+                cancelButtonText: 'Cancel',
+                closeOnConfirm: false,
+                closeOnCancel: true
+            }, function(isConfirm) {
+                if (isConfirm) {
+                    // for (var i = 0; i < collection.length; i++) {
+                    //     if (collection[i].id == cardId) {
+                    //         if (collection[i].count && collection[i].count == 2) {
+                    //             collection[i].count--;
+                    //         } else {
+                    //             collection.splice(i, 1);
+                    //         }
+                    //     }
+                    // }
+
+                    // cellar.save('collection', collection);
+
+                    // populateCollection();
+
+                    timedAlert('Loaded', 'success');
+                }
+            });
+        }
+    }
+};
+
+var exportData = function() {
+    if (mode == 'collection') {
+        var string = 'http://www.jessemillar.com/crackle?type=collection&cards=',
+            array = [];
+
+        for (var i = 0; i < collection.length; i++) {
+            var card = {};
+
+            if (collection[i].count) {
+                card.id = collection[i].id;
+                card.count = collection[i].count;
+            } else {
+                card.id = collection[i].id;
+            }
+
+            array.push(card);
+        }
+
+        string += JSON.stringify(array);
+        console.log(encodeURI(string));
+    }
+};
+
+var populateDecks = function() {
+    $('.decks_list').empty(); // Clear the <ul> initially
+    $('.decks_list').append('<li><a href="#" onclick="addDeck()">Make New Deck</a></li>');
+
+    for (var i = 0; i < decks.length; i++) {
+        $('.decks_list').append('<li><a href="#" onclick="loadDeck()">' + decks[i].name + '</a></li>');
+    }
 };
 
 var populateSearch = function() {
     var cards = [];
 
     for (var i = 0; i < sets.length; i++) {
-        for (var j = 0; j < collectibles[sets[i]].length; j++) {
-            if (collectibles[sets[i]][j].collectible == true) {
+        for (var j = 0; j < database[sets[i]].length; j++) {
+            if (database[sets[i]][j].collectible === true) {
                 var card = {
-                    id: collectibles[sets[i]][j].id,
-                    title: collectibles[sets[i]][j].name
+                    id: database[sets[i]][j].id,
+                    title: database[sets[i]][j].name
                 };
 
                 cards.push(card);
@@ -66,9 +191,9 @@ var populateSearch = function() {
         create: false,
         onChange: function(cardId, $item) {
             for (var i = 0; i < sets.length; i++) {
-                for (var j = 0; j < collectibles[sets[i]].length; j++) {
-                    if (collectibles[sets[i]][j].id == cardId) {
-                        cardSelect(collectibles[sets[i]][j]);
+                for (var j = 0; j < database[sets[i]].length; j++) {
+                    if (database[sets[i]][j].id == cardId) {
+                        cardSelect(database[sets[i]][j]);
                         this.clear();
                         return;
                     }
@@ -94,14 +219,14 @@ var populateCollection = function() {
     $('.collection_preview').empty(); // Clear the HTML table
 
     var columnCount = 0,
-        appendString = '<div class="row">';
+        appendString = '<div class="row">'; // The string we'll build and then append to the DOM
 
     for (var i = 0; i < collection.length; i++) {
         if (columnCount < cardsPerRow) {
             if (collection[i].count == 2) {
-                appendString += '<div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" height="' + cardCountHeight + '" /></div></div>';
+                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div>';
             } else {
-                appendString += '<div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
+                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             }
 
             columnCount++;
@@ -109,9 +234,9 @@ var populateCollection = function() {
             $('.collection_preview').append(appendString + '</div>');
 
             if (collection[i].count == 2) {
-                appendString = '<div class="row"><div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
+                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div>';
             } else {
-                appendString = '<div class="row"><div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" height="' + cardCountHeight + '" /></div></div></div>';
+                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             }
 
             columnCount = 1;
@@ -133,27 +258,56 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
     if (mode == 'browse') {
         $('.collection_preview').hide();
         $('#browse_button').addClass('active');
-        $('#decks_button').removeClass('active');
+        $('#deck_button').removeClass('active');
         $('#collection_button').removeClass('active');
         $('.wrap').css('background-image', "url('images/backgrounds/browse.png')");
-    } else if (mode == 'decks') {
+    } else if (mode == 'deck') {
         $('.collection_preview').hide();
         $('#browse_button').removeClass('active');
-        $('#decks_button').addClass('active');
+        $('#deck_button').addClass('active');
         $('#collection_button').removeClass('active');
         $('.wrap').css('background-image', "url('images/backgrounds/decks.png')");
     } else if (mode == 'collection') {
         $('.collection_preview').show();
         $('#browse_button').removeClass('active');
-        $('#decks_button').removeClass('active');
+        $('#deck_button').removeClass('active');
         $('#collection_button').addClass('active');
         $('.wrap').css('background-image', "url('images/backgrounds/collection.png')");
     }
 };
 
+var timedAlert = function(message, type, callback) {
+    sweetAlert({
+        title: message,
+        type: type,
+        timer: 1000,
+        showConfirmButton: false
+    }, callback());
+};
+
+var addDeck = function() {
+    swal({
+        title: "An input!",
+        text: "Write something interesting:",
+        type: "input",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        inputPlaceholder: "Write something"
+    }, function(inputValue) {
+        if (inputValue === false) return false;
+        if (inputValue === '') {
+            swal.showInputError("You need to write something!");
+            return false;
+        }
+        swal("Nice!", "You wrote: " + inputValue, "success");
+    });
+};
+
 var addCard = function(card) {
     swal({
-        title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
+        imageUrl: 'images/cards/' + card.id + '.png',
+        imageSize: cardWidth + 'x' + cardHeight,
+        title: '',
         text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
         showCancelButton: true,
         confirmButtonColor: '#2ECC40',
@@ -161,17 +315,15 @@ var addCard = function(card) {
         cancelButtonText: 'Cancel',
         closeOnConfirm: false,
         closeOnCancel: true,
-        html: true
     }, function(isConfirm) {
         if (isConfirm) {
             for (var i = 0; i < collection.length; i++) {
                 if (collection[i].id == card.id) { // If we already have the card in our collection
                     if (collection[i].count == 2) {
                         sweetAlert({
-                            title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                            title: 'Oops...',
                             text: 'You already have two copies of ' + card.name + ' in your collection!',
-                            type: 'error',
-                            html: true
+                            type: 'error'
                         });
 
                         return;
@@ -179,7 +331,7 @@ var addCard = function(card) {
                         collection[i].count = 2;
                         populateCollection();
                         cellar.save('collection', collection);
-                        alertSuccess();
+                        timedAlert();
 
                         return;
                     }
@@ -189,42 +341,33 @@ var addCard = function(card) {
             collection.push(card);
             populateCollection();
             cellar.save('collection', collection);
-            alertSuccess();
+            timedAlert();
         }
     });
 };
-
-var alertSuccess = function() {
-    sweetAlert({
-        title: '<h2 style="margin-top: 50px">Added</h2>',
-        type: 'success',
-        timer: 1000,
-        showConfirmButton: false,
-        html: true
-    });
-}
 
 var removeCard = function(cardId) {
     var card;
 
     for (var i = 0; i < sets.length; i++) {
-        for (var j = 0; j < collectibles[sets[i]].length; j++) {
-            if (collectibles[sets[i]][j].id == cardId) {
-                card = collectibles[sets[i]][j];
+        for (var j = 0; j < database[sets[i]].length; j++) {
+            if (database[sets[i]][j].id == cardId) {
+                card = database[sets[i]][j];
             }
         }
     }
 
     swal({
-        title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
+        imageUrl: 'images/cards/' + card.id + '.png',
+        imageSize: cardWidth + 'x' + cardHeight,
+        title: '',
         text: 'Do you want to remove a copy of ' + card.name + ' from your collection?',
         showCancelButton: true,
         confirmButtonColor: '#FF4136',
         confirmButtonText: 'Remove',
         cancelButtonText: 'Cancel',
         closeOnConfirm: false,
-        closeOnCancel: true,
-        html: true
+        closeOnCancel: true
     }, function(isConfirm) {
         if (isConfirm) {
             for (var i = 0; i < collection.length; i++) {
@@ -241,13 +384,7 @@ var removeCard = function(cardId) {
 
             populateCollection();
 
-            sweetAlert({
-                title: '<h2 style="margin-top: 50px">Removed</h2>',
-                type: 'success',
-                timer: 1000,
-                showConfirmButton: false,
-                html: true
-            });
+            timedAlert('Removed', 'success');
         }
     });
 };
@@ -273,12 +410,15 @@ var parsePotentialNull = function(number) {
 var cardSelect = function(card) {
     if (mode == 'browse') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
-            html: true
+            imageUrl: 'images/cards/' + card.id + '.png',
+            imageSize: cardWidth + 'x' + cardHeight,
+            title: ''
         });
-    } else if (mode == 'decks') {
+    } else if (mode == 'deck') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
+            imageUrl: 'images/cards/' + card.id + '.png',
+            imageSize: cardWidth + 'x' + cardHeight,
+            title: '',
             text: 'Do you want to add a copy of ' + card.name + ' to your deck?',
             showCancelButton: true,
             confirmButtonColor: '#2ECC40',
@@ -286,7 +426,6 @@ var cardSelect = function(card) {
             cancelButtonText: 'Cancel',
             closeOnConfirm: false,
             closeOnCancel: true,
-            html: true
         }, function(isConfirm) {
             if (isConfirm) {
                 if (deck.length < 30) {
@@ -303,28 +442,19 @@ var cardSelect = function(card) {
 
                         cellar.save('deck', deck);
 
-                        sweetAlert({
-                            title: '<h2 style="margin-top: 50px">Added</h2>',
-                            // text: 'You already have 30 cards in your deck!',
-                            type: 'success',
-                            timer: 1000,
-                            showConfirmButton: false,
-                            html: true
-                        });
+                        timedAlert('Added', 'success');
                     } else {
                         sweetAlert({
-                            title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                            title: 'Oops...',
                             text: 'You already have two copies of ' + card.name + ' in your deck!',
                             type: 'error',
-                            html: true
                         });
                     }
                 } else {
                     sweetAlert({
-                        title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                        title: 'Oops...',
                         text: 'You already have 30 cards in your deck!',
                         type: 'error',
-                        html: true
                     });
                 }
             }

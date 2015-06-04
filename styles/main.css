@@ -6,6 +6,14 @@ body {
     height: 100%;
 }
 
+.sweet-alert {
+    font-family: 'Roboto', sans-serif;
+}
+
+.sa-custom {
+    margin: 0 auto !important; /* Dumb stylesheets */
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -28,18 +36,25 @@ body {
     opacity: 0.1;
 }
 
-.sweet-alert {
-    font-family: 'Roboto', sans-serif;
-}
-
-.sweet-alert h2 {
-    padding: 0;
-    margin-top: -22px;
-    margin-bottom: 5px;
-}
-
 .navigation {
-    padding-top: 30px;
+    padding-top: 25px;
+}
+
+.btn {
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.btn, .selectize-input, .selectize-dropdown {
+    display: block;
+    width: 100%;
+    color: #ffffff;
+    background-color: #231d17;
+    border-top: solid 4px #e1d285;
+    border-bottom: solid 4px #593f1b;
+    border-left: solid 4px #6d4e2a;
+    border-right: solid 4px #a58b4b;
+    box-shadow: inset 0 0 0 2px #7a7162;
 }
 
 .selectize-input,
@@ -48,25 +63,27 @@ body {
 }
 
 .selectize-dropdown-content {
-    max-height: 350px;
+    max-height: 400px;
 }
 
 .selectize-dropdown-content .active,
 .selectize-dropdown-content .option .highlight {
     background-color: #7FDBFF;
+    border: solid 2px #7a7162;
     color: #111111;
+    font-weight: bold;
 }
 
 .card_preview {
     position: relative;
-    z-index: 20;
+    z-index: 1;
 }
 
 .card_preview img {
     display: block;
     width: 100%;
     height: auto;
-    max-width: 264px;
+    max-width: 240px;
     /* This needs to match the variable in main.js */
     
     margin: 0 auto;
@@ -76,17 +93,17 @@ body {
 
 .card_count_banner {
     position: relative;
-    z-index: 10;
+    z-index: 0;
 }
 
 .card_count_banner img {
     display: block;
     width: 100%;
     height: auto;
-    max-width: 264px;
+    max-width: 240px;
     /* This needs to match the variable in main.js */
     
     margin: 0 auto;
-    margin-top: -10%;
+    margin-top: -9%;
     z-index: 0;
 }

@@ -1,4 +1,4 @@
-var collectibles = {
+var database = {
     "Basic": [{
         "id": "GAME_004",
         "name": "AFK",
