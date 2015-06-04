@@ -15,17 +15,19 @@
     <div class="wrap">
         <div class="container">
             <div class="row navigation">
-                <div class="col-sm-5">
+                <div class="col-sm-4">
                     <select class="search" placeholder="Search for a card..."></select>
                 </div>
-                <div class="col-sm-6">
-                    <div class="btn-group btn-group-justified">
-                        <a id="browse_button" class="btn" type="submit" onclick="changeMode('browse')">Browse</a>
-                        <a id="deck_button" class="btn" type="submit" onclick="changeMode('deck')">Deck</a>
-                        <a id="collection_button" class="btn" type="submit" onclick="changeMode('collection')">Collection</a>
-                    </div>
+                <div class="col-sm-2">
+                    <button id="export_button" class="btn" type="submit" onclick="changeMode('browse')">Browse</button>
                 </div>
-                <div class="col-sm-1">
+                <div class="col-sm-2">
+                    <button id="export_button" class="btn" type="submit" onclick="changeMode('deck')">Deck</button>
+                </div>
+                <div class="col-sm-2">
+                    <button id="export_button" class="btn" type="submit" onclick="changeMode('collection')">Collection</button>
+                </div>
+                <div class="col-sm-2">
                     <button id="export_button" class="btn" type="submit" onclick="exportData()">Export</button>
                 </div>
             </div>
