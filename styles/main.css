@@ -6,6 +6,14 @@ body {
     height: 100%;
 }
 
+.sweet-alert {
+    font-family: 'Roboto', sans-serif;
+}
+
+.sa-custom {
+    margin: 0 auto !important; /* Dumb stylesheets */
+}
+
 .wrap {
     min-height: 100%;
     height: auto;
@@ -28,16 +36,13 @@ body {
     opacity: 0.1;
 }
 
-.sweet-alert {
-    font-family: 'Roboto', sans-serif;
-}
-
-.sa-custom {
-    margin: 0 auto !important; /* Dumb stylesheets */
-}
-
 .navigation {
     padding-top: 25px;
+}
+
+.btn {
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .btn, .selectize-input, .selectize-dropdown {
@@ -52,23 +57,21 @@ body {
     box-shadow: inset 0 0 0 2px #7a7162;
 }
 
-#export_button {
-    
-}
-
 .selectize-input,
 .selectize-input input {
     line-height: 16px;
 }
 
 .selectize-dropdown-content {
-    max-height: 350px;
+    max-height: 400px;
 }
 
 .selectize-dropdown-content .active,
 .selectize-dropdown-content .option .highlight {
     background-color: #7FDBFF;
+    border: solid 2px #7a7162;
     color: #111111;
+    font-weight: bold;
 }
 
 .card_preview {

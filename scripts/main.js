@@ -411,7 +411,8 @@ var cardSelect = function(card) {
     if (mode == 'browse') {
         swal({
             imageUrl: 'images/cards/' + card.id + '.png',
-            imageSize: cardWidth + 'x' + cardHeight
+            imageSize: cardWidth + 'x' + cardHeight,
+            title: ''
         });
     } else if (mode == 'deck') {
         swal({
