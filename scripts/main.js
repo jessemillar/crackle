@@ -149,6 +149,20 @@ var exportData = function() {
 
         string += JSON.stringify(array);
         console.log(encodeURI(string));
+
+        swal({
+            title: '',
+            text: 'Do you want to copy the collection link?',
+            showCancelButton: true,
+            confirmButtonText: 'Copy',
+            cancelButtonText: 'Cancel',
+            closeOnConfirm: false,
+            closeOnCancel: true
+        }, function(isConfirm) {
+            if (isConfirm) {
+                // Copy the string
+            }
+        });
     }
 };
 

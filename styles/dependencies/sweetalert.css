@@ -211,10 +211,6 @@ body.stop-scrolling {
 }
 
 .sweet-alert button {
-    background-color: #AEDEF4;
-    color: white;
-    border: none;
-    box-shadow: none;
     font-size: 17px;
     font-weight: 500;
     -webkit-border-radius: 4px;
@@ -246,10 +242,6 @@ body.stop-scrolling {
 
 .sweet-alert button.cancel:active {
     background-color: #b6b6b6;
-}
-
-.sweet-alert button.cancel:focus {
-    box-shadow: rgba(197, 205, 211, 0.8) 0px 0px 2px, rgba(0, 0, 0, 0.0470588) 0px 0px 0px 1px inset !important;
 }
 
 .sweet-alert button::-moz-focus-inner {
