@@ -40,6 +40,15 @@ body {
     padding-top: 25px;
 }
 
+.btn {
+    color: #ffffff;
+    background-color: #231d17;
+    border-top: solid 4px #e1d285;
+    border-bottom: solid 4px #593f1b;
+    border-left: solid 4px #6d4e2a;
+    border-right: solid 4px #a58b4b;
+}
+
 #export_button {
     display: block;
     width: 100%;
