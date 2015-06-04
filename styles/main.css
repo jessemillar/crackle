@@ -76,6 +76,25 @@ body {
     margin-bottom: 20px;
 }
 
+.btn:focus,.btn:active:focus,.btn.active:focus,
+.btn.focus,.btn:active.focus,.btn.active.focus,
+.selectize-input:focus,
+.sweet-alert button:focus {
+  outline: none;
+}
+
+.btn.active,.btn:active,
+.selectize-input.active,
+.sweet-alert button.active {
+    margin-top: 1px;
+    background-color: #e3e4d2 !important;
+    border-top: solid 4px #ccca8b;
+    border-bottom: solid 4px #bc943d;
+    border-left: solid 4px #6f4918;
+    border-right: solid 4px #806423;
+    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #BAB389, inset 0 0 0 3px #BCB155, 0 -1px 0 3px #241d1b, 0 -1px 2px 5px #6a6762;
+}
+
 .selectize-dropdown-content {
     display: block;
     width: 100%;
@@ -105,10 +124,6 @@ body {
 .sweet-alert p {
     color: #ffffff;
     opacity: 0.75;
-}
-
-.sweet-overlay {
-    opacity: 0 !important;
 }
 
 .selectize-input,
