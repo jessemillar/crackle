@@ -57,6 +57,18 @@ body {
     box-shadow: inset 0 0 0 2px #efe488, 0 0 0 3px #241d1b, 0 0 0 5px #6a6762, 1px 2px 5px #9a8966;
 }
 
+.sweet-alert button {
+    color: #4f3e1f;
+    background-color: #fcfdeb !important;
+    border-top: solid 4px #fffdbe;
+    border-bottom: solid 4px #efc770;
+    border-left: solid 4px #886231;
+    border-right: solid 4px #b39756;
+    box-shadow: inset 0 0 0 2px #efe488, 0 0 0 3px #241d1b, 0 0 0 5px #6a6762, 1px 2px 5px #9a8966;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
 .selectize-dropdown-content {
     display: block;
     width: 100%;
@@ -70,13 +82,26 @@ body {
 }
 
 .sweet-alert {
-    color: #ffffff;
     background-color: #231d17;
     border-top: solid 4px #e1d285;
     border-bottom: solid 4px #593f1b;
     border-left: solid 4px #6d4e2a;
     border-right: solid 4px #a58b4b;
     box-shadow: inset 0 0 0 2px #7a7162, 5px 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+.sweet-alert h2 {
+    color: #ffffff;
+    opacity: 0.9;
+}
+
+.sweet-alert p {
+    color: #ffffff;
+    opacity: 0.75;
+}
+
+.sweet-overlay {
+    opacity: 0 !important; /* Don't fade the screen */
 }
 
 .selectize-input,

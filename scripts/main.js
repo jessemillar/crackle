@@ -6,6 +6,11 @@ swal.setDefaults({
     animation: false
 });
 
+swal({
+    title: 'Welcome to Crackle',
+    text: 'Crackle is an in-development application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub. Some things may be broken but fixes come fast.'
+});
+
 var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Goblins vs Gnomes'],
     mode = 'browse',
     collection = [],

@@ -257,10 +257,6 @@ body.stop-scrolling {
     border: 0;
 }
 
-.sweet-alert[data-has-cancel-button=false] button {
-    box-shadow: none !important;
-}
-
 .sweet-alert[data-has-confirm-button=false][data-has-cancel-button=false] {
     padding-bottom: 40px;
 }
