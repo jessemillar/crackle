@@ -13,7 +13,8 @@ body {
     background-size: auto 60%;
     background-attachment: local;
     background-position: center;
-    margin: 0 auto -60px; /* Negative indent footer by it's height */
+    margin: 0 auto -60px;
+    /* Negative indent footer by it's height */
 }
 
 .push,
@@ -50,7 +51,8 @@ body {
     max-height: 350px;
 }
 
-.selectize-dropdown-content .active, .selectize-dropdown-content .option .highlight {
+.selectize-dropdown-content .active,
+.selectize-dropdown-content .option .highlight {
     background-color: #7FDBFF;
     color: #111111;
 }
@@ -68,7 +70,11 @@ body {
 
 .card_count_banner img {
     display: block;
+    width: 100%;
+    max-width: 264px;
+    /* This needs to match the variable in main.js */
+    
     margin: 0 auto;
-    margin-top: -30px;
+    margin-top: -26px;
     z-index: 0;
 }
