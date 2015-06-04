@@ -17,7 +17,7 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
 var init = function() {
     swal({
         title: 'Welcome to Crackle',
-        text: 'Crackle is an in-development application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub. Some things may be broken but fixes come fast.'
+        text: 'Crackle is an in-development, desktop web application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub. Some things may currently be broken but fixes come fast.'
     });
 
     if (cellar.get('mode')) {
