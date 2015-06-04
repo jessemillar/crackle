@@ -8,7 +8,6 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
     decks = [],
     cardHeight = 400,
     cardWidth = 264,
-    cardCountHeight = 65,
     cardsPerRow = 4;
 
 var init = function() {
@@ -99,7 +98,7 @@ var populateCollection = function() {
     for (var i = 0; i < collection.length; i++) {
         if (columnCount < cardsPerRow) {
             if (collection[i].count == 2) {
-                appendString += '<div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" height="' + cardCountHeight + '" /></div></div>';
+                appendString += '<div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div>';
             } else {
                 appendString += '<div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             }
@@ -109,9 +108,9 @@ var populateCollection = function() {
             $('.collection_preview').append(appendString + '</div>');
 
             if (collection[i].count == 2) {
-                appendString = '<div class="row"><div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
+                appendString = '<div class="row"><div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div>';
             } else {
-                appendString = '<div class="row"><div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" height="' + cardCountHeight + '" /></div></div></div>';
+                appendString = '<div class="row"><div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             }
 
             columnCount = 1;
