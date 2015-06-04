@@ -258,19 +258,19 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
     if (mode == 'browse') {
         $('.collection_preview').hide();
         $('#browse_button').addClass('active');
-        $('#decks_button').removeClass('active');
+        $('#deck_button').removeClass('active');
         $('#collection_button').removeClass('active');
         $('.wrap').css('background-image', "url('images/backgrounds/browse.png')");
-    } else if (mode == 'decks') {
+    } else if (mode == 'deck') {
         $('.collection_preview').hide();
         $('#browse_button').removeClass('active');
-        $('#decks_button').addClass('active');
+        $('#deck_button').addClass('active');
         $('#collection_button').removeClass('active');
         $('.wrap').css('background-image', "url('images/backgrounds/decks.png')");
     } else if (mode == 'collection') {
         $('.collection_preview').show();
         $('#browse_button').removeClass('active');
-        $('#decks_button').removeClass('active');
+        $('#deck_button').removeClass('active');
         $('#collection_button').addClass('active');
         $('.wrap').css('background-image', "url('images/backgrounds/collection.png')");
     }
@@ -413,7 +413,7 @@ var cardSelect = function(card) {
             imageUrl: 'images/cards/' + card.id + '.png',
             imageSize: cardWidth + 'x' + cardHeight
         });
-    } else if (mode == 'decks') {
+    } else if (mode == 'deck') {
         swal({
             imageUrl: 'images/cards/' + card.id + '.png',
             imageSize: cardWidth + 'x' + cardHeight,
