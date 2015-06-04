@@ -32,14 +32,16 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-.sweet-alert h2 {
-    padding: 0;
-    margin-top: -22px;
-    margin-bottom: 5px;
+.sa-custom {
+    margin: 0 auto !important; /* Dumb stylesheets */
 }
 
 .navigation {
-    padding-top: 30px;
+    padding-top: 25px;
+}
+
+.dropdown-menu {
+    width: 100%;
 }
 
 .selectize-input,
@@ -66,7 +68,7 @@ body {
     display: block;
     width: 100%;
     height: auto;
-    max-width: 264px;
+    max-width: 240px;
     /* This needs to match the variable in main.js */
     
     margin: 0 auto;
@@ -83,10 +85,10 @@ body {
     display: block;
     width: 100%;
     height: auto;
-    max-width: 264px;
+    max-width: 240px;
     /* This needs to match the variable in main.js */
     
     margin: 0 auto;
-    margin-top: -10%;
+    margin-top: -9%;
     z-index: 0;
 }

@@ -6,9 +6,9 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
     mode = 'browse',
     collection = [],
     decks = [],
-    cardHeight = 400,
-    cardWidth = 264,
-    cardsPerRow = 4;
+    cardWidth = 240, // Helps get the size of the Sweetalert correct
+    cardHeight = Math.round(cardWidth * 1.51), // Helps get the size of the Sweetalert correct by calculating based on the correct ratio
+    cardsPerRow = 4; // Only certain numbers work since we have a total width of 12 columns
 
 var init = function() {
     if (cellar.get('mode')) {
@@ -35,7 +35,7 @@ var populateSearch = function() {
 
     for (var i = 0; i < sets.length; i++) {
         for (var j = 0; j < collectibles[sets[i]].length; j++) {
-            if (collectibles[sets[i]][j].collectible == true) {
+            if (collectibles[sets[i]][j].collectible === true) {
                 var card = {
                     id: collectibles[sets[i]][j].id,
                     title: collectibles[sets[i]][j].name
@@ -93,14 +93,14 @@ var populateCollection = function() {
     $('.collection_preview').empty(); // Clear the HTML table
 
     var columnCount = 0,
-        appendString = '<div class="row">';
+        appendString = '<div class="row">'; // The string we'll build and then append to the DOM
 
     for (var i = 0; i < collection.length; i++) {
         if (columnCount < cardsPerRow) {
             if (collection[i].count == 2) {
-                appendString += '<div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div>';
+                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div>';
             } else {
-                appendString += '<div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
+                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             }
 
             columnCount++;
@@ -108,9 +108,9 @@ var populateCollection = function() {
             $('.collection_preview').append(appendString + '</div>');
 
             if (collection[i].count == 2) {
-                appendString = '<div class="row"><div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div>';
+                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div>';
             } else {
-                appendString = '<div class="row"><div class="col-xs-3"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
+                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
             }
 
             columnCount = 1;
@@ -150,9 +150,40 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
     }
 };
 
+var alertSuccess = function() {
+    sweetAlert({
+        title: 'Added',
+        type: 'success',
+        timer: 1000,
+        showConfirmButton: false,
+        html: true
+    });
+};
+
+var addDeck = function() {
+    swal({
+        title: "An input!",
+        text: "Write something interesting:",
+        type: "input",
+        showCancelButton: true,
+        closeOnConfirm: false,
+        animation: "slide-from-top",
+        inputPlaceholder: "Write something"
+    }, function(inputValue) {
+        if (inputValue === false) return false;
+        if (inputValue === "") {
+            swal.showInputError("You need to write something!");
+            return false;
+        }
+        swal("Nice!", "You wrote: " + inputValue, "success");
+    });
+};
+
 var addCard = function(card) {
     swal({
-        title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
+        imageUrl: 'images/cards/' + card.id + '.png',
+        imageSize: cardWidth + 'x' + cardHeight,
+        title: '',
         text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
         showCancelButton: true,
         confirmButtonColor: '#2ECC40',
@@ -167,7 +198,7 @@ var addCard = function(card) {
                 if (collection[i].id == card.id) { // If we already have the card in our collection
                     if (collection[i].count == 2) {
                         sweetAlert({
-                            title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                            title: 'Oops...',
                             text: 'You already have two copies of ' + card.name + ' in your collection!',
                             type: 'error',
                             html: true
@@ -193,16 +224,6 @@ var addCard = function(card) {
     });
 };
 
-var alertSuccess = function() {
-    sweetAlert({
-        title: '<h2 style="margin-top: 50px">Added</h2>',
-        type: 'success',
-        timer: 1000,
-        showConfirmButton: false,
-        html: true
-    });
-}
-
 var removeCard = function(cardId) {
     var card;
 
@@ -215,7 +236,9 @@ var removeCard = function(cardId) {
     }
 
     swal({
-        title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
+        imageUrl: 'images/cards/' + card.id + '.png',
+        imageSize: cardWidth + 'x' + cardHeight,
+        title: '',
         text: 'Do you want to remove a copy of ' + card.name + ' from your collection?',
         showCancelButton: true,
         confirmButtonColor: '#FF4136',
@@ -241,7 +264,7 @@ var removeCard = function(cardId) {
             populateCollection();
 
             sweetAlert({
-                title: '<h2 style="margin-top: 50px">Removed</h2>',
+                title: 'Removed',
                 type: 'success',
                 timer: 1000,
                 showConfirmButton: false,
@@ -272,12 +295,16 @@ var parsePotentialNull = function(number) {
 var cardSelect = function(card) {
     if (mode == 'browse') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
-            html: true
+            imageUrl: 'images/cards/' + card.id + '.png',
+            imageSize: cardWidth + 'x' + cardHeight,
+            title: '',
+            animation: false
         });
     } else if (mode == 'decks') {
         swal({
-            title: '<img src="images/cards/' + card.id + '.png" width="' + cardWidth + '" height="' + cardHeight + '" />',
+            imageUrl: 'images/cards/' + card.id + '.png',
+            imageSize: cardWidth + 'x' + cardHeight,
+            title: '',
             text: 'Do you want to add a copy of ' + card.name + ' to your deck?',
             showCancelButton: true,
             confirmButtonColor: '#2ECC40',
@@ -303,7 +330,7 @@ var cardSelect = function(card) {
                         cellar.save('deck', deck);
 
                         sweetAlert({
-                            title: '<h2 style="margin-top: 50px">Added</h2>',
+                            title: 'Added',
                             // text: 'You already have 30 cards in your deck!',
                             type: 'success',
                             timer: 1000,
@@ -312,7 +339,7 @@ var cardSelect = function(card) {
                         });
                     } else {
                         sweetAlert({
-                            title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                            title: 'Oops...',
                             text: 'You already have two copies of ' + card.name + ' in your deck!',
                             type: 'error',
                             html: true
@@ -320,7 +347,7 @@ var cardSelect = function(card) {
                     }
                 } else {
                     sweetAlert({
-                        title: '<h2 style="margin-top: 50px">Oops...</h2>',
+                        title: 'Oops...',
                         text: 'You already have 30 cards in your deck!',
                         type: 'error',
                         html: true
