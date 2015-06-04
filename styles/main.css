@@ -11,7 +11,8 @@ body {
 }
 
 .sa-custom {
-    margin: 0 auto !important; /* Dumb stylesheets */
+    margin: 0 auto !important;
+    /* Dumb stylesheets */
 }
 
 .wrap {
@@ -37,7 +38,18 @@ body {
 }
 
 .navigation {
-    padding-top: 25px;
+    padding-top: 20px;
+    background-color: #393635;
+    border-bottom: solid 4px #1e201e;
+    border-left: solid 4px #232121;
+    border-right: solid 4px #736e68;
+    -webkit-border-bottom-right-radius: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-border-radius-bottomleft: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #5f5a59, inset 0 0 0 4px #2b2925;
 }
 
 .btn {
@@ -45,7 +57,8 @@ body {
     letter-spacing: 1px;
 }
 
-.btn, .selectize-input {
+.btn,
+.selectize-input {
     display: block;
     width: 100%;
     color: #4f3e1f;
@@ -54,7 +67,8 @@ body {
     border-bottom: solid 4px #efc770;
     border-left: solid 4px #886231;
     border-right: solid 4px #b39756;
-    box-shadow: inset 0 0 0 2px #efe488, 0 0 0 3px #241d1b, 0 0 0 5px #6a6762, 1px 2px 5px #9a8966;
+    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 2px #efe488, 0 0 0 3px #241d1b, 0 0 0 5px #6a6762;
+    margin-bottom: 20px;
 }
 
 .sweet-alert button {
@@ -101,7 +115,9 @@ body {
 }
 
 .sweet-overlay {
-    opacity: 0 !important; /* Don't fade the screen */
+    background-color: rgba(255, 255, 255, 0.5);
+    /*    opacity: 1.1 !important;
+*/
 }
 
 .selectize-input,

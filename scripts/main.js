@@ -6,11 +6,6 @@ swal.setDefaults({
     animation: false
 });
 
-swal({
-    title: 'Welcome to Crackle',
-    text: 'Crackle is an in-development application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub. Some things may be broken but fixes come fast.'
-});
-
 var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Goblins vs Gnomes'],
     mode = 'browse',
     collection = [],
@@ -20,6 +15,11 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
     cardsPerRow = 4; // Only certain numbers work since we have a total width of 12 columns
 
 var init = function() {
+    // swal({
+    //     title: 'Welcome to Crackle',
+    //     text: 'Crackle is an in-development application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub. Some things may be broken but fixes come fast.'
+    // });
+
     if (cellar.get('mode')) {
         mode = cellar.get('mode');
     }
