@@ -128,6 +128,9 @@ body {
     border-left: solid 3px #886231;
     border-right: solid 3px #b39756;
     box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.5), inset 0 0 0 1px #ede6bc, inset 0 0 0px 3px #efe488, inset 0 0 2px 4px #2b2925;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .sweet-alert h2 {
@@ -151,6 +154,9 @@ body {
     border-left: solid 3px #886231;
     border-right: solid 3px #b39756;
     box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.5), inset 0 0 0 1px #ede6bc, inset 0 0 0px 3px #efe488, inset 0 0 2px 4px #2b2925;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .selectize-input,
@@ -160,13 +166,14 @@ body {
 
 .selectize-dropdown-content {
     max-height: 375px;
+    letter-spacing: 1px;
+    padding: 3px;
 }
 
 .selectize-dropdown-content .active,
 .selectize-dropdown-content .option .highlight {
-    background-color: #efe488;
-    color: #393635;
-    font-weight: bold;
+    background-color: rgba(239, 228, 136, 0.5);
+    color: #ffffff;
 }
 
 .card_preview {
