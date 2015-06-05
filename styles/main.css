@@ -85,6 +85,8 @@ body {
     border-right: solid 4px #b39756;
     box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #ede6bc, inset 0 0 0 3px #efe488, 0 0 0 3px #241d1b, 0 0 2px 5px #6a6762;
     margin-bottom: 18px;
+    font-size: 15px !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .btn:focus,
@@ -98,21 +100,27 @@ body {
     outline: none;
 }
 
+.sweet-alert input[type="text"],
+.sweet-alert input[type="text"]:focus,
+.sweet-alert input[type="text"]:active,
 .btn.active,
 .btn:active,
+.selectize-input,
 .selectize-input.active,
 .selectize-input:active,
-.selectize-input.focus,
+.selectize-input.focus
 .selectize-input:focus {
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+    -webkit-border-radius: 5px !important;
+    -moz-border-radius: 5px !important;
+    border-radius: 5px !important;
     background-color: #e3e4d2 !important;
     border-top: solid 4px #ccca8b !important;
     border-bottom: solid 4px #bc943d !important;
     border-left: solid 4px #6f4918 !important;
     border-right: solid 4px #806423 !important;
     box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #BAB389, inset 0 0 0 3px #BCB155, 0 0 0 3px #241d1b, 0 0 2px 5px #6a6762;
+    font-size: 15px !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .sweet-alert button.active,

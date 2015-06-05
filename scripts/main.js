@@ -137,6 +137,26 @@ var getUrlParameter = function(param) {
 //     }
 // };
 
+var loadData = function() {
+    swal({
+        title: '',
+        text: 'Enter collection.md URL:<br><br>', // I'm too lazy to figure out proper padding, hence the linebreaks
+        type: 'input',
+        showCancelButton: true,
+        inputPlaceholder: 'http://username.github.io/collection.md',
+        html: true
+    }, function(inputValue) {
+        if (inputValue === false) {
+            return false;
+        } else if (inputValue === "") {
+            swal.showInputError("You need to write something!");
+            return false
+        }
+        
+        // swal("Nice!", "You wrote: " + inputValue, "success");
+    });
+};
+
 var exportData = function() {
     if (mode == 'collection') {
         var array = [];
