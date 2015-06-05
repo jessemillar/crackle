@@ -92,9 +92,7 @@ var checkUrl = function() {
                     populateCollection();
                     changeMode('collection');
 
-                    timedAlert('Loaded', 'success', function() {
-                        location.assign(window.location.href.split('?')[0]);
-                    });
+                    location.assign(window.location.href.split('?')[0]);
                 }
             });
         } else if (getUrlParameter('type').toLowerCase() == 'deck') {
@@ -121,8 +119,6 @@ var checkUrl = function() {
                     // cellar.save('collection', collection);
 
                     // populateCollection();
-
-                    timedAlert('Loaded', 'success');
                 }
             });
         }
@@ -295,15 +291,6 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
     }
 };
 
-var timedAlert = function(message, type, callback) {
-    sweetAlert({
-        title: message,
-        type: type,
-        timer: 1000,
-        showConfirmButton: false
-    }, callback());
-};
-
 var addDeck = function() {
     swal({
         title: "An input!",
@@ -341,8 +328,7 @@ var addCard = function(card) {
                     if (collection[i].count == 2) {
                         sweetAlert({
                             title: 'Oops...',
-                            text: 'You already have two copies of ' + card.name + ' in your collection!',
-                            type: 'error'
+                            text: 'You already have two copies of ' + card.name + ' in your collection!'
                         });
 
                         return;
@@ -350,7 +336,6 @@ var addCard = function(card) {
                         collection[i].count = 2;
                         populateCollection();
                         cellar.save('collection', collection);
-                        timedAlert();
 
                         return;
                     }
@@ -360,7 +345,6 @@ var addCard = function(card) {
             collection.push(card);
             populateCollection();
             cellar.save('collection', collection);
-            timedAlert();
         }
     });
 };
@@ -402,8 +386,6 @@ var removeCard = function(cardId) {
             cellar.save('collection', collection);
 
             populateCollection();
-
-            timedAlert('Removed', 'success');
         }
     });
 };
@@ -460,20 +442,16 @@ var cardSelect = function(card) {
                         deck.push(card.id);
 
                         cellar.save('deck', deck);
-
-                        timedAlert('Added', 'success');
                     } else {
                         sweetAlert({
                             title: 'Oops...',
-                            text: 'You already have two copies of ' + card.name + ' in your deck!',
-                            type: 'error',
+                            text: 'You already have two copies of ' + card.name + ' in your deck!'
                         });
                     }
                 } else {
                     sweetAlert({
                         title: 'Oops...',
-                        text: 'You already have 30 cards in your deck!',
-                        type: 'error',
+                        text: 'You already have 30 cards in your deck!'
                     });
                 }
             }
