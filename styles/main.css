@@ -80,6 +80,15 @@ body {
     z-index: 10;
 }
 
+.hero_picker img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 200px;
+    margin: 35px auto 0 auto;
+    cursor: pointer;
+}
+
 .card_count_banner {
     position: relative;
     z-index: 0;

@@ -42,14 +42,49 @@
                     </div>
                 </div>
             </div>
-            <div class="row collection_preview no_select" style="display: none">
+            <div class="row deck_hero no_select" style="display: none"></div>
+            <div class="row card_grid no_select" style="display: none">
             </div>
+            <div class="row hero_picker no_select" style="display: block">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('warrior')" src="images/heroes/warrior.png" />
+                    </div>
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('shaman')" src="images/heroes/shaman.png" />
+                    </div>
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('rogue')" src="images/heroes/rogue.png" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('paladin')" src="images/heroes/paladin.png" />
+                    </div>
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('hunter')" src="images/heroes/hunter.png" />
+                    </div>
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('druid')" src="images/heroes/druid.png" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('warlock')" src="images/heroes/warlock.png" />
+                    </div>
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('mage')" src="images/heroes/mage.png" />
+                    </div>
+                    <div class="col-sm-4">
+                        <img onclick="selectHero('priest')" src="images/heroes/priest.png" />
+                    </div>
+                </div>
+            </div>
+            <div class="push"></div>
         </div>
-        <div class="push"></div>
-    </div>
-    <div class="footer">
-        <center>&copy 2015 Jesse Millar </center>
-    </div>
+        <div class="footer">
+            <center>&copy 2015 Jesse Millar </center>
+        </div>
 </body>
 <script type="text/javascript" src="database/AllSets.js"></script>
 <script type="text/javascript" src="scripts/dependencies/jquery-1.11.3.min.js"></script>

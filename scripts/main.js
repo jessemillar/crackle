@@ -7,7 +7,10 @@ swal.setDefaults({
 var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Goblins vs Gnomes'],
     mode = 'browse',
     collection = [],
-    decks = [],
+    deck = {
+        hero: null,
+        cards: []
+    },
     cardWidth = 240, // Helps get the size of the Sweetalert correct
     cardHeight = Math.round(cardWidth * 1.51), // Helps get the size of the Sweetalert correct by calculating based on the correct ratio
     cardsPerRow = 4; // Only certain numbers work since we have a total width of 12 columns
@@ -31,7 +34,6 @@ var init = function() {
         populateCollection(); // Populate things even if we can't see it yet
     }
 
-    // populateDecks(); // Load the decks we have saved
     populateSearch();
 
     updateModeButtons();
@@ -148,10 +150,10 @@ var getUrlParameter = function(param) {
 var loadData = function() {
     swal({
         title: '',
-        text: 'Enter collection.md URL:<br><br>', // I'm too lazy to figure out proper padding, hence the linebreaks
+        text: 'Enter a URL to a Crackle .json file:<br><br>', // I'm too lazy to figure out proper padding, hence the linebreaks
         type: 'input',
         showCancelButton: true,
-        inputPlaceholder: 'http://username.github.io/collection.md',
+        inputPlaceholder: 'http://username.github.io/collection.json',
         html: true
     }, function(inputValue) {
         if (inputValue === false) {
@@ -215,15 +217,6 @@ var exportData = function() {
     }
 };
 
-// var populateDecks = function() {
-//     $('.decks_list').empty(); // Clear the <ul> initially
-//     $('.decks_list').append('<li><a href="#" onclick="addDeck()">Make New Deck</a></li>');
-
-//     for (var i = 0; i < decks.length; i++) {
-//         $('.decks_list').append('<li><a href="#" onclick="loadDeck()">' + decks[i].name + '</a></li>');
-//     }
-// };
-
 var populateSearch = function() {
     var cards = [];
 
@@ -284,7 +277,7 @@ var sortByCost = function(a, b) {
 var populateCollection = function() {
     collection.sort(sortByCost);
 
-    $('.collection_preview').empty(); // Clear the HTML table
+    $('.card_grid').empty(); // Clear the HTML table
 
     var columnCount = 0,
         appendString = '<div class="row">'; // The string we'll build and then append to the DOM
@@ -299,7 +292,7 @@ var populateCollection = function() {
 
             columnCount++;
         } else { // New row
-            $('.collection_preview').append(appendString + '</div>');
+            $('.card_grid').append(appendString + '</div>');
 
             if (collection[i].count == 2) {
                 appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div><div class="card_back"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/back.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div></div></div>';
@@ -311,7 +304,7 @@ var populateCollection = function() {
         }
     }
 
-    $('.collection_preview').append(appendString + '</div>'); // Catch the last few cards that didn't make a full row and append everything
+    $('.card_grid').append(appendString + '</div>'); // Catch the last few cards that didn't make a full row and append everything
 };
 
 var changeMode = function(newMode) {
@@ -324,17 +317,21 @@ var changeMode = function(newMode) {
 
 var updateModeButtons = function() { // Update the buttons' active states to reflect the current mode
     if (mode == 'browse') {
-        $('.collection_preview').hide();
+        $('.card_grid').hide();
         $('#browse_button').addClass('active');
         $('#deck_button').removeClass('active');
         $('#collection_button').removeClass('active');
     } else if (mode == 'deck') {
-        $('.collection_preview').hide();
+        if (deck.cards.length == 0) {
+            addDeck();
+        }
+
+        $('.card_grid').hide();
         $('#browse_button').removeClass('active');
         $('#deck_button').addClass('active');
         $('#collection_button').removeClass('active');
     } else if (mode == 'collection') {
-        $('.collection_preview').show();
+        $('.card_grid').show();
         $('#browse_button').removeClass('active');
         $('#deck_button').removeClass('active');
         $('#collection_button').addClass('active');
@@ -342,19 +339,33 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
 };
 
 var addDeck = function() {
+    if (!deck.hero) {
+        $('.hero_picker').show();
+
+        swal({
+            title: 'Select a hero',
+            text: ''
+        });
+    }
+};
+
+var selectHero = function(hero) {
     swal({
-        title: "An input!",
-        text: "Write something interesting:",
-        type: "input",
+        title: '',
+        text: 'Are you sure you want the ' + capitalizeString(hero) + ' as your deck hero?',
         showCancelButton: true,
-        inputPlaceholder: "Write something"
-    }, function(inputValue) {
-        if (inputValue === false) return false;
-        if (inputValue === '') {
-            swal.showInputError("You need to write something!");
-            return false;
+        confirmButtonText: 'Confirm',
+        cancelButtonText: 'Cancel'
+    }, function(isConfirm) {
+        if (isConfirm) {
+            deck.hero = hero;
+
+            $('.hero_picker').hide();
+            $('.deck_hero').show();
+            $('.deck_hero').empty();
+            $('.deck_hero').append('<img src="images/heroes/' + hero + '.png />');
+            $('.card_grid').show();
         }
-        swal("Nice!", "You wrote: " + inputValue, "success");
     });
 };
 
