@@ -159,36 +159,6 @@ var loadData = function() {
 
 var exportData = function() {
     if (mode == 'collection') {
-        var array = [];
-
-        for (var i = 0; i < collection.length; i++) {
-            var card = {};
-
-            if (collection[i].count) {
-                card.id = collection[i].id;
-                card.count = collection[i].count;
-            } else {
-                card.id = collection[i].id;
-            }
-
-            // for (var i = 0; i < sets.length; i++) { // Export all possible cards for debugging purposes
-            //     for (var j = 0; j < database[sets[i]].length; j++) {
-            //         if (database[sets[i]][j].collectible == true) {
-            //             var card = {};
-
-            //             if (collection[i].count) {
-            //                 card.i = database[sets[i]][j].id;
-            //                 card.c = 2; // Give two copies of all cards for maximum url length
-            //             } else {
-            //                 card.i = database[sets[i]][j].id;
-            //             }
-
-            //             array.push(card);
-            //         }
-            //     }
-            // }
-        }
-
         swal({
             title: '',
             text: 'Would you like to download your collection data?',
@@ -197,7 +167,41 @@ var exportData = function() {
             cancelButtonText: 'Cancel'
         }, function(isConfirm) {
             if (isConfirm) {
-                download('collection.md', JSON.stringify(array));
+                var content = {
+                    collection: []
+                }
+
+                for (var i = 0; i < collection.length; i++) {
+                    var card = {};
+
+                    if (collection[i].count) {
+                        card.id = collection[i].id;
+                        card.count = collection[i].count;
+                    } else {
+                        card.id = collection[i].id;
+                    }
+
+                    content.collection.push(card);
+
+                    // for (var i = 0; i < sets.length; i++) { // Export all possible cards for debugging purposes
+                    //     for (var j = 0; j < database[sets[i]].length; j++) {
+                    //         if (database[sets[i]][j].collectible == true) {
+                    //             var card = {};
+
+                    //             if (collection[i].count) {
+                    //                 card.i = database[sets[i]][j].id;
+                    //                 card.c = 2; // Give two copies of all cards for maximum url length
+                    //             } else {
+                    //                 card.i = database[sets[i]][j].id;
+                    //             }
+
+                    //             array.push(card);
+                    //         }
+                    //     }
+                    // }
+                }
+
+                download('collection.json', JSON.stringify(content, null, 4));
             }
         });
     }
