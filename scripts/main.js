@@ -152,7 +152,7 @@ var loadData = function() {
             swal.showInputError("You need to write something!");
             return false
         }
-        
+
         // swal("Nice!", "You wrote: " + inputValue, "success");
     });
 };

@@ -104,7 +104,6 @@ body {
     outline: none;
 }
 
-.sweet-alert input[type="text"]:focus,
 .sweet-alert input[type="text"]:active,
 .btn.active,
 .btn:active,
