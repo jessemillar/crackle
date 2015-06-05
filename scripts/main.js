@@ -19,41 +19,40 @@ var init = function() {
             text: 'Crackle is optimized for desktop. It may work on mobile, but it probably won\'t be pleasant',
             html: true
         });
-    } else {
-        if (!cellar.get('welcomed')) {
-            swal({
-                title: 'Welcome to Crackle',
-                text: 'Crackle is an in-development, desktop web application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub.<br><br>Some things (deck building) may currently be broken but fixes come fast.',
-                html: true
-            });
-
-            cellar.save('welcomed', true);
-        }
-
-        if (cellar.get('mode')) {
-            mode = cellar.get('mode');
-        }
-
-        if (cellar.get('collection')) {
-            collection = cellar.get('collection');
-        }
-
-        if (cellar.get('deck')) {
-            deck = cellar.get('deck');
-        }
-
-        // checkUrl();
-
-        if (collection.length > 0) {
-            populateCollection(); // Populate things even if we can't see it yet
-        }
-
-        // populateDecks(); // Load the decks we have saved
-        populateSearch();
-
-        updateModeButtons();
     }
 
+    if (!cellar.get('welcomed')) {
+        swal({
+            title: 'Welcome to Crackle',
+            text: 'Crackle is an in-development, desktop web application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub.<br><br>Some things (deck building) may currently be broken but fixes come fast.',
+            html: true
+        });
+
+        cellar.save('welcomed', true);
+    }
+
+    if (cellar.get('mode')) {
+        mode = cellar.get('mode');
+    }
+
+    if (cellar.get('collection')) {
+        collection = cellar.get('collection');
+    }
+
+    if (cellar.get('deck')) {
+        deck = cellar.get('deck');
+    }
+
+    // checkUrl();
+
+    if (collection.length > 0) {
+        populateCollection(); // Populate things even if we can't see it yet
+    }
+
+    // populateDecks(); // Load the decks we have saved
+    populateSearch();
+
+    updateModeButtons();
 };
 
 var download = function(filename, text) {
