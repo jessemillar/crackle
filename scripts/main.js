@@ -13,11 +13,15 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
     cardsPerRow = 4; // Only certain numbers work since we have a total width of 12 columns
 
 var init = function() {
-    swal({
-        title: 'Welcome to Crackle',
-        text: 'Crackle is an in-development, desktop web application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub.<br><br>Some things (deck building) may currently be broken but fixes come fast.',
-        html: true
-    });
+    if (!cellar.get('welcomed')) {
+        swal({
+            title: 'Welcome to Crackle',
+            text: 'Crackle is an in-development, desktop web application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub.<br><br>Some things (deck building) may currently be broken but fixes come fast.',
+            html: true
+        });
+
+        cellar.save('welcomed', true);
+    }
 
     if (cellar.get('mode')) {
         mode = cellar.get('mode');
@@ -70,8 +74,8 @@ var getUrlParameter = function(param) {
 };
 
 var checkUrl = function() {
-    if (getUrlParameter('type')) {
-        if (getUrlParameter('type').toLowerCase() == 'collection') {
+    if (getUrlParameter('t')) {
+        if (getUrlParameter('t').toLowerCase() == 'c') {
             swal({
                 title: '',
                 text: 'Do you want to load this collection?',
@@ -80,7 +84,7 @@ var checkUrl = function() {
                 cancelButtonText: 'Cancel'
             }, function(isConfirm) {
                 if (isConfirm) {
-                    var array = JSON.parse(decodeURI(getUrlParameter('cards'))),
+                    var array = JSON.parse(decodeURI(getUrlParameter('c'))),
                         collection = []; // Clear our current collection (maybe backup later on)
 
                     for (var i = 0; i < array.length; i++) {
@@ -105,10 +109,10 @@ var checkUrl = function() {
                     location.assign(window.location.href.split('?')[0]);
                 }
             });
-        } else if (getUrlParameter('type').toLowerCase() == 'deck') {
+        } else if (getUrlParameter('t').toLowerCase() == 'd') {
             swal({
                 title: '',
-                text: 'Do you want to load the deck "' + getUrlParameter('name') + '"?',
+                text: 'Do you want to load the deck "' + getUrlParameter('n') + '"?',
                 showCancelButton: true,
                 confirmButtonText: 'Load',
                 cancelButtonText: 'Cancel'
@@ -135,20 +139,35 @@ var checkUrl = function() {
 
 var exportData = function() {
     if (mode == 'collection') {
-        var string = 'http://www.jessemillar.com/crackle?type=collection&cards=',
+        var string = 'http://www.jessemillar.com/crackle?type=c&c=',
             array = [];
 
         for (var i = 0; i < collection.length; i++) {
             var card = {};
 
-            if (collection[i].count) {
-                card.id = collection[i].id;
-                card.count = collection[i].count;
-            } else {
-                card.id = collection[i].id;
-            }
+            // if (collection[i].count) {
+            //     card.i = collection[i].id;
+            //     card.c = collection[i].count;
+            // } else {
+            //     card.i = collection[i].id;
+            // }
 
-            array.push(card);
+            for (var i = 0; i < sets.length; i++) { // Export all possible cards for debugging purposes
+                for (var j = 0; j < database[sets[i]].length; j++) {
+                    if (database[sets[i]][j].collectible == true) {
+                        var card = {};
+
+                        if (collection[i].count) {
+                            card.i = database[sets[i]][j].id;
+                            card.c = 2; // Give two copies of all cards for maximum url length
+                        } else {
+                            card.i = database[sets[i]][j].id;
+                        }
+
+                        array.push(card);
+                    }
+                }
+            }
         }
 
         string += JSON.stringify(array);
