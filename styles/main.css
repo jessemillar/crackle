@@ -52,7 +52,8 @@ body {
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #5f5a59, inset 0 0 2px 4px #2b2925;
 }
 
-.btn {
+.btn,
+.sweet-alert button {
     font-weight: bold;
     letter-spacing: 1px;
 }
@@ -99,13 +100,12 @@ body {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-    margin-top: 1px;
     background-color: #e3e4d2 !important;
     border-top: solid 4px #ccca8b !important;
     border-bottom: solid 4px #bc943d !important;
     border-left: solid 4px #6f4918 !important;
     border-right: solid 4px #806423 !important;
-    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #BAB389, inset 0 0 0 3px #BCB155, 0 -1px 0 3px #241d1b, 0 -1px 2px 5px #6a6762;
+    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #BAB389, inset 0 0 0 3px #BCB155, 0 0 0 3px #241d1b, 0 0 2px 5px #6a6762;
 }
 
 .sweet-alert button.active,
