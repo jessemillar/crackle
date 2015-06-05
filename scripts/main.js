@@ -1,5 +1,3 @@
-// console.log(database);
-
 var cellar = new Cellar();
 
 swal.setDefaults({
@@ -17,7 +15,8 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
 var init = function() {
     swal({
         title: 'Welcome to Crackle',
-        text: 'Crackle is an in-development, desktop web application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub. Some things may currently be broken but fixes come fast.'
+        text: 'Crackle is an in-development, desktop web application for managing Hearthstone card collections and decks with the intent of versioning those decks and collections on GitHub.<br><br>Some things (deck building) may currently be broken but fixes come fast.',
+        html: true
     });
 
     if (cellar.get('mode')) {
@@ -44,6 +43,19 @@ var init = function() {
     updateModeButtons();
 };
 
+var download = function(filename, text) {
+    var pom = document.createElement('a');
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
+    pom.setAttribute('download', filename);
+
+    pom.style.display = 'none';
+    document.body.appendChild(pom);
+
+    pom.click();
+
+    document.body.removeChild(pom);
+};
+
 var getUrlParameter = function(param) {
     var url = window.location.search.substring(1),
         variables = url.split('&');
@@ -65,9 +77,7 @@ var checkUrl = function() {
                 text: 'Do you want to load this collection?',
                 showCancelButton: true,
                 confirmButtonText: 'Load',
-                cancelButtonText: 'Cancel',
-                closeOnConfirm: false,
-                closeOnCancel: true
+                cancelButtonText: 'Cancel'
             }, function(isConfirm) {
                 if (isConfirm) {
                     var array = JSON.parse(decodeURI(getUrlParameter('cards'))),
@@ -101,9 +111,7 @@ var checkUrl = function() {
                 text: 'Do you want to load the deck "' + getUrlParameter('name') + '"?',
                 showCancelButton: true,
                 confirmButtonText: 'Load',
-                cancelButtonText: 'Cancel',
-                closeOnConfirm: false,
-                closeOnCancel: true
+                cancelButtonText: 'Cancel'
             }, function(isConfirm) {
                 if (isConfirm) {
                     // for (var i = 0; i < collection.length; i++) {
@@ -144,19 +152,16 @@ var exportData = function() {
         }
 
         string += JSON.stringify(array);
-        console.log(encodeURI(string));
 
         swal({
             title: '',
-            text: 'Do you want to copy the collection link?',
+            text: 'Would you like to download your collection data?',
             showCancelButton: true,
-            confirmButtonText: 'Copy',
-            cancelButtonText: 'Cancel',
-            closeOnConfirm: false,
-            closeOnCancel: true
+            confirmButtonText: 'Download',
+            cancelButtonText: 'Cancel'
         }, function(isConfirm) {
             if (isConfirm) {
-                // Copy the string
+                download('collection.md', encodeURI(string));
             }
         });
     }
@@ -294,7 +299,6 @@ var addDeck = function() {
         text: "Write something interesting:",
         type: "input",
         showCancelButton: true,
-        closeOnConfirm: false,
         inputPlaceholder: "Write something"
     }, function(inputValue) {
         if (inputValue === false) return false;
@@ -313,11 +317,8 @@ var addCard = function(card) {
         title: '',
         text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
         showCancelButton: true,
-        confirmButtonColor: '#2ECC40',
         confirmButtonText: 'Add',
-        cancelButtonText: 'Cancel',
-        closeOnConfirm: false,
-        closeOnCancel: true,
+        cancelButtonText: 'Cancel'
     }, function(isConfirm) {
         if (isConfirm) {
             for (var i = 0; i < collection.length; i++) {
@@ -353,6 +354,7 @@ var removeCard = function(cardId) {
         for (var j = 0; j < database[sets[i]].length; j++) {
             if (database[sets[i]][j].id == cardId) {
                 card = database[sets[i]][j];
+                break;
             }
         }
     }
@@ -363,11 +365,8 @@ var removeCard = function(cardId) {
         title: '',
         text: 'Do you want to remove a copy of ' + card.name + ' from your collection?',
         showCancelButton: true,
-        confirmButtonColor: '#FF4136',
         confirmButtonText: 'Remove',
-        cancelButtonText: 'Cancel',
-        closeOnConfirm: false,
-        closeOnCancel: true
+        cancelButtonText: 'Cancel'
     }, function(isConfirm) {
         if (isConfirm) {
             for (var i = 0; i < collection.length; i++) {
@@ -419,11 +418,8 @@ var cardSelect = function(card) {
             title: '',
             text: 'Do you want to add a copy of ' + card.name + ' to your deck?',
             showCancelButton: true,
-            confirmButtonColor: '#2ECC40',
             confirmButtonText: 'Add',
-            cancelButtonText: 'Cancel',
-            closeOnConfirm: false,
-            closeOnCancel: true,
+            cancelButtonText: 'Cancel'
         }, function(isConfirm) {
             if (isConfirm) {
                 if (deck.length < 30) {
