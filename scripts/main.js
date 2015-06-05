@@ -35,7 +35,7 @@ var init = function() {
         deck = cellar.get('deck');
     }
 
-    checkUrl();
+    // checkUrl();
 
     if (collection.length > 0) {
         populateCollection(); // Populate things even if we can't see it yet
@@ -73,104 +73,101 @@ var getUrlParameter = function(param) {
     }
 };
 
-var checkUrl = function() {
-    if (getUrlParameter('t')) {
-        if (getUrlParameter('t').toLowerCase() == 'c') {
-            swal({
-                title: '',
-                text: 'Do you want to load this collection?',
-                showCancelButton: true,
-                confirmButtonText: 'Load',
-                cancelButtonText: 'Cancel'
-            }, function(isConfirm) {
-                if (isConfirm) {
-                    var array = JSON.parse(decodeURI(getUrlParameter('c'))),
-                        collection = []; // Clear our current collection (maybe backup later on)
+// var checkUrl = function() {
+//     if (getUrlParameter('type')) {
+//         if (getUrlParameter('type').toLowerCase() == 'collection') {
+//             swal({
+//                 title: '',
+//                 text: 'Do you want to load this collection?',
+//                 showCancelButton: true,
+//                 confirmButtonText: 'Load',
+//                 cancelButtonText: 'Cancel'
+//             }, function(isConfirm) {
+//                 if (isConfirm) {
+//                     var array = JSON.parse(decodeURI(getUrlParameter('c'))),
+//                         collection = []; // Clear our current collection (maybe backup later on)
 
-                    for (var i = 0; i < array.length; i++) {
-                        for (var j = 0; j < sets.length; j++) {
-                            for (var k = 0; k < database[sets[j]].length; k++) {
-                                if (database[sets[j]][k].id == array[i].id) {
-                                    var card = database[sets[j]][k];
-                                    card.count = array[i].count;
+//                     for (var i = 0; i < array.length; i++) {
+//                         for (var j = 0; j < sets.length; j++) {
+//                             for (var k = 0; k < database[sets[j]].length; k++) {
+//                                 if (database[sets[j]][k].id == array[i].id) {
+//                                     var card = database[sets[j]][k];
+//                                     card.count = array[i].count;
 
-                                    collection.push(card);
+//                                     collection.push(card);
 
-                                    break;
-                                }
-                            }
-                        }
-                    }
+//                                     break;
+//                                 }
+//                             }
+//                         }
+//                     }
 
-                    cellar.save('collection', collection);
-                    populateCollection();
-                    changeMode('collection');
+//                     cellar.save('collection', collection);
+//                     populateCollection();
+//                     changeMode('collection');
 
-                    location.assign(window.location.href.split('?')[0]);
-                }
-            });
-        } else if (getUrlParameter('t').toLowerCase() == 'd') {
-            swal({
-                title: '',
-                text: 'Do you want to load the deck "' + getUrlParameter('n') + '"?',
-                showCancelButton: true,
-                confirmButtonText: 'Load',
-                cancelButtonText: 'Cancel'
-            }, function(isConfirm) {
-                if (isConfirm) {
-                    // for (var i = 0; i < collection.length; i++) {
-                    //     if (collection[i].id == cardId) {
-                    //         if (collection[i].count && collection[i].count == 2) {
-                    //             collection[i].count--;
-                    //         } else {
-                    //             collection.splice(i, 1);
-                    //         }
-                    //     }
-                    // }
+//                     location.assign(window.location.href.split('?')[0]);
+//                 }
+//             });
+//         } else if (getUrlParameter('type').toLowerCase() == 'deck') {
+//             swal({
+//                 title: '',
+//                 text: 'Do you want to load the deck "' + getUrlParameter('name') + '"?',
+//                 showCancelButton: true,
+//                 confirmButtonText: 'Load',
+//                 cancelButtonText: 'Cancel'
+//             }, function(isConfirm) {
+//                 if (isConfirm) {
+//                     // for (var i = 0; i < collection.length; i++) {
+//                     //     if (collection[i].id == cardId) {
+//                     //         if (collection[i].count && collection[i].count == 2) {
+//                     //             collection[i].count--;
+//                     //         } else {
+//                     //             collection.splice(i, 1);
+//                     //         }
+//                     //     }
+//                     // }
 
-                    // cellar.save('collection', collection);
+//                     // cellar.save('collection', collection);
 
-                    // populateCollection();
-                }
-            });
-        }
-    }
-};
+//                     // populateCollection();
+//                 }
+//             });
+//         }
+//     }
+// };
 
 var exportData = function() {
     if (mode == 'collection') {
-        var string = 'http://www.jessemillar.com/crackle?type=c&c=',
-            array = [];
+        var array = [];
 
         for (var i = 0; i < collection.length; i++) {
             var card = {};
 
-            // if (collection[i].count) {
-            //     card.i = collection[i].id;
-            //     card.c = collection[i].count;
-            // } else {
-            //     card.i = collection[i].id;
-            // }
-
-            for (var i = 0; i < sets.length; i++) { // Export all possible cards for debugging purposes
-                for (var j = 0; j < database[sets[i]].length; j++) {
-                    if (database[sets[i]][j].collectible == true) {
-                        var card = {};
-
-                        if (collection[i].count) {
-                            card.i = database[sets[i]][j].id;
-                            card.c = 2; // Give two copies of all cards for maximum url length
-                        } else {
-                            card.i = database[sets[i]][j].id;
-                        }
-
-                        array.push(card);
-                    }
-                }
+            if (collection[i].count) {
+                card.id = collection[i].id;
+                card.count = collection[i].count;
+            } else {
+                card.id = collection[i].id;
             }
-        }
 
-        string += JSON.stringify(array);
+            // for (var i = 0; i < sets.length; i++) { // Export all possible cards for debugging purposes
+            //     for (var j = 0; j < database[sets[i]].length; j++) {
+            //         if (database[sets[i]][j].collectible == true) {
+            //             var card = {};
+
+            //             if (collection[i].count) {
+            //                 card.i = database[sets[i]][j].id;
+            //                 card.c = 2; // Give two copies of all cards for maximum url length
+            //             } else {
+            //                 card.i = database[sets[i]][j].id;
+            //             }
+
+            //             array.push(card);
+            //         }
+            //     }
+            // }
+        }
 
         swal({
             title: '',
@@ -180,7 +177,7 @@ var exportData = function() {
             cancelButtonText: 'Cancel'
         }, function(isConfirm) {
             if (isConfirm) {
-                download('collection.md', encodeURI(string));
+                download('collection.md', JSON.stringify(array));
             }
         });
     }

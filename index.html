@@ -1,48 +1,54 @@
 <html>
-    <head>
-        <title>Crackle</title>
-        <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
-            <link href="styles/dependencies/bootstrap.min.css" rel="stylesheet" type="text/css" />
-            <link href="styles/dependencies/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
-            <link href="styles/dependencies/selectize.css" rel="stylesheet" type="text/css" />
-            <link href="styles/dependencies/sweetalert.css" rel="stylesheet" type="text/css" />
-            <link href="styles/main.css" rel="stylesheet" type="text/css" />
-            <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
-        </head>
-        <body onload="init()">
-            <div class="wrap">
-                <div class="container">
-                    <div class="row navigation">
-                        <div class="col-sm-4">
-                        <select class="search" placeholder="Search for a card..."></select>
-                    </div>
-                    <div class="col-sm-2">
-                        <button id="browse_button" class="btn" type="submit" onclick="changeMode('browse')">Browse</button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button id="deck_button" class="btn" type="submit" onclick="changeMode('deck')">Deck</button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button id="collection_button" class="btn" type="submit" onclick="changeMode('collection')">Collection</button>
-                    </div>
-                    <div class="col-sm-2">
-                        <button id="export_button" class="btn" type="submit" onclick="exportData()">Export</button>
-                    </div>
+
+<head>
+    <title>Crackle</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,700italic,400italic' rel='stylesheet' type='text/css'>
+    <link href="styles/dependencies/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/dependencies/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
+    <link href="styles/dependencies/selectize.css" rel="stylesheet" type="text/css" />
+    <link href="styles/dependencies/sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="styles/main.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+</head>
+
+<body onload="init()">
+    <div class="wrap">
+        <div class="container">
+            <div class="row navigation">
+                <div class="col-sm-2">
+                    <button id="browse_button" class="btn" type="submit" onclick="changeMode('browse')">Browse</button>
                 </div>
-                <div class="row collection_preview" style="display: none">
+                <div class="col-sm-2">
+                    <button id="collection_button" class="btn" type="submit" onclick="changeMode('collection')">Collection</button>
+                </div>
+                <div class="col-sm-2">
+                    <button id="deck_button" class="btn" type="submit" onclick="changeMode('deck')">Deck</button>
+                </div>
+                <div class="col-sm-4">
+                    <select class="search" placeholder="Search for a card..."></select>
+                </div>
+                <div class="col-sm-1">
+                    <button id="load_button" class="btn" type="submit" onclick="loadData()">Load</button>
+                </div>
+                <div class="col-sm-1">
+                    <button id="save_button" class="btn" type="submit" onclick="exportData()">Save</button>
                 </div>
             </div>
-            <div class="push"></div>
+            <div class="row collection_preview no_select" style="display: none">
+            </div>
         </div>
-        <div class="footer">
-            <center>&copy 2015 Jesse Millar </center>
-        </div>
-    </body>
-    <script type="text/javascript" src="database/AllSets.js"></script>
-    <script type="text/javascript" src="scripts/dependencies/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="scripts/dependencies/bootstrap.min.js"></script>
-    <script type="text/javascript" src="scripts/dependencies/selectize.min.js"></script>
-    <script type="text/javascript" src="scripts/dependencies/sweetalert.min.js"></script>
-    <script type="text/javascript" src="scripts/dependencies/pantry.min.js"></script>
-    <script type="text/javascript" src="scripts/main.js"></script>
+        <div class="push"></div>
+    </div>
+    <div class="footer">
+        <center>&copy 2015 Jesse Millar </center>
+    </div>
+</body>
+<script type="text/javascript" src="database/AllSets.js"></script>
+<script type="text/javascript" src="scripts/dependencies/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="scripts/dependencies/bootstrap.min.js"></script>
+<script type="text/javascript" src="scripts/dependencies/selectize.min.js"></script>
+<script type="text/javascript" src="scripts/dependencies/sweetalert.min.js"></script>
+<script type="text/javascript" src="scripts/dependencies/pantry.min.js"></script>
+<script type="text/javascript" src="scripts/main.js"></script>
+
 </html>
