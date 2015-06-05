@@ -16,6 +16,85 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
+/* entire container, keeps perspective */
+
+.card_flip_container {
+    perspective: 1000;
+}
+/* flip the pane when hovered */
+
+.card_flip_container:hover .card_flipper,
+.card_flip_container.hover .card_flipper {
+    transform: rotateY(180deg);
+}
+
+.card_flip_container,
+.card_front,
+.card_back {
+    /* Match the values in main.js */
+    width: 240px;
+    height: 362px;
+}
+/* flip speed goes here */
+
+.card_flipper {
+    transition: 0.6s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+/* hide back of pane during swap */
+
+.card_front,
+.card_back {
+    backface-visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+/* front pane, placed above back */
+
+.card_front {
+    z-index: 2;
+    /* for firefox 31 */
+    
+    transform: rotateY(0deg);
+}
+/* back, initially hidden pane */
+
+.card_back {
+    transform: rotateY(180deg);
+}
+
+.card_front img,
+.card_back img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 240px;
+    /* This needs to match the variable in main.js */
+    
+    margin: 0 auto;
+    cursor: no-drop;
+    z-index: 10;
+}
+
+.card_count_banner {
+    position: relative;
+    z-index: 0;
+}
+
+.card_count_banner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 240px;
+    /* This needs to match the variable in main.js */
+    
+    margin: 0 auto;
+    margin-top: -9%;
+    z-index: 0;
+}
 
 .sweet-alert {
     font-family: 'Roboto', sans-serif;
@@ -109,8 +188,7 @@ body {
 .btn:active,
 .selectize-input.active,
 .selectize-input:active,
-.selectize-input.focus
-.selectize-input:focus {
+.selectize-input.focus .selectize-input:focus {
     -webkit-border-radius: 5px !important;
     -moz-border-radius: 5px !important;
     border-radius: 5px !important;
@@ -190,38 +268,4 @@ body {
 .selectize-dropdown-content .option .highlight {
     background-color: rgba(239, 228, 136, 0.5);
     color: #ffffff;
-}
-
-.card_preview {
-    position: relative;
-    z-index: 1;
-}
-
-.card_preview img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: 240px;
-    /* This needs to match the variable in main.js */
-    
-    margin: 0 auto;
-    cursor: no-drop;
-    z-index: 10;
-}
-
-.card_count_banner {
-    position: relative;
-    z-index: 0;
-}
-
-.card_count_banner img {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: 240px;
-    /* This needs to match the variable in main.js */
-    
-    margin: 0 auto;
-    margin-top: -9%;
-    z-index: 0;
 }

@@ -41,7 +41,7 @@ var init = function() {
         populateCollection(); // Populate things even if we can't see it yet
     }
 
-    populateDecks(); // Load the decks we have saved
+    // populateDecks(); // Load the decks we have saved
     populateSearch();
 
     updateModeButtons();
@@ -203,14 +203,14 @@ var exportData = function() {
     }
 };
 
-var populateDecks = function() {
-    $('.decks_list').empty(); // Clear the <ul> initially
-    $('.decks_list').append('<li><a href="#" onclick="addDeck()">Make New Deck</a></li>');
+// var populateDecks = function() {
+//     $('.decks_list').empty(); // Clear the <ul> initially
+//     $('.decks_list').append('<li><a href="#" onclick="addDeck()">Make New Deck</a></li>');
 
-    for (var i = 0; i < decks.length; i++) {
-        $('.decks_list').append('<li><a href="#" onclick="loadDeck()">' + decks[i].name + '</a></li>');
-    }
-};
+//     for (var i = 0; i < decks.length; i++) {
+//         $('.decks_list').append('<li><a href="#" onclick="loadDeck()">' + decks[i].name + '</a></li>');
+//     }
+// };
 
 var populateSearch = function() {
     var cards = [];
@@ -280,9 +280,9 @@ var populateCollection = function() {
     for (var i = 0; i < collection.length; i++) {
         if (columnCount < cardsPerRow) {
             if (collection[i].count == 2) {
-                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div>';
+                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div><div class="card_back"><img src="images/back.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div></div></div>';
             } else {
-                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
+                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_back"><img src="images/back.png" /></div></div></div></div>';
             }
 
             columnCount++;
@@ -290,9 +290,9 @@ var populateCollection = function() {
             $('.collection_preview').append(appendString + '</div>');
 
             if (collection[i].count == 2) {
-                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div>';
+                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div><div class="card_back"><img src="images/back.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div></div></div>';
             } else {
-                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_preview"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div></div>';
+                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_back"><img src="images/back.png" /></div></div></div></div>';
             }
 
             columnCount = 1;
