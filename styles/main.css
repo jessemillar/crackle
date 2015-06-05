@@ -1,9 +1,11 @@
 html,
 body {
     color: #111111;
-    background-color: #c1ac7f;
+    background-color: #89231b;
     font-family: 'Roboto', sans-serif;
     height: 100%;
+    background-image: url('../images/fabric.png');
+    background-repeat: repeat;
 }
 
 .sweet-alert {
@@ -18,10 +20,6 @@ body {
 .wrap {
     min-height: 100%;
     height: auto;
-    background-repeat: no-repeat;
-    background-size: auto 60%;
-    background-attachment: local;
-    background-position: center;
     margin: 0 auto -60px;
     /* Negative indent footer by it's height */
 }
@@ -32,9 +30,9 @@ body {
 }
 
 .footer {
-    color: #ffffff;
+    color: #111111;
     padding: 25px 0;
-    opacity: 0.35;
+    opacity: 0.5;
 }
 
 .navigation {
