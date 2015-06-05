@@ -16,12 +16,12 @@ body {
     -ms-user-select: none;
     user-select: none;
 }
-/* entire container, keeps perspective */
 
 .card_flip_container {
     perspective: 1000;
+    width: 100%;
+    margin-bottom: 150%; /* For vertical spacing */
 }
-/* flip the pane when hovered */
 
 .card_flip_container:hover .card_flipper,
 .card_flip_container.hover .card_flipper {
@@ -32,13 +32,13 @@ body {
 .card_front,
 .card_back {
     /* Match the values in main.js */
-    width: 240px;
-    height: 362px;
+    display: block;
+    width: 100%;
 }
 /* flip speed goes here */
 
 .card_flipper {
-    transition: 0.6s;
+    transition: 0.4s;
     transform-style: preserve-3d;
     position: relative;
 }
@@ -50,6 +50,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
+    margin: 0 auto;
     z-index: 1;
 }
 /* front pane, placed above back */
@@ -142,6 +143,9 @@ body {
 .sweet-alert button {
     font-weight: bold;
     letter-spacing: 1px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .btn,

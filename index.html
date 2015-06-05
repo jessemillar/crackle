@@ -15,23 +15,31 @@
     <div class="wrap">
         <div class="container">
             <div class="row navigation">
-                <div class="col-sm-2">
-                    <button id="browse_button" class="btn" type="submit" onclick="changeMode('browse')">Browse</button>
-                </div>
-                <div class="col-sm-2">
-                    <button id="collection_button" class="btn" type="submit" onclick="changeMode('collection')">Collection</button>
-                </div>
-                <div class="col-sm-2">
-                    <button id="deck_button" class="btn" type="submit" onclick="changeMode('deck')">Deck</button>
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <button id="browse_button" class="btn" type="submit" onclick="changeMode('browse')">Browse</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button id="collection_button" class="btn" type="submit" onclick="changeMode('collection')">Collection</button>
+                        </div>
+                        <div class="col-sm-4">
+                            <button id="deck_button" class="btn" type="submit" onclick="changeMode('deck')">Deck</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-4">
                     <select class="search" placeholder="Search for a card..."></select>
                 </div>
-                <div class="col-sm-1">
-                    <button id="load_button" class="btn" type="submit" onclick="loadData()">Load</button>
-                </div>
-                <div class="col-sm-1">
-                    <button id="save_button" class="btn" type="submit" onclick="exportData()">Save</button>
+                <div class="col-sm-3">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button id="load_button" class="btn" type="submit" onclick="loadData()">Load</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button id="save_button" class="btn" type="submit" onclick="exportData()">Save</button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="row collection_preview no_select" style="display: none">
