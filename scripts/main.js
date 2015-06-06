@@ -480,14 +480,14 @@ var addCard = function(card) {
     });
 };
 
-var removeCard = function(cardId) {
-    var card;
-
-    for (var i = 0; i < sets.length; i++) { // Get card name and ID for Sweetalert
-        for (var j = 0; j < database[sets[i]].length; j++) {
-            if (database[sets[i]][j].id == cardId) {
-                card = database[sets[i]][j];
-                break;
+var removeCard = function(card) {
+    if (!card.name) { // If we just passed an ID for the card_grid onClick event
+        for (var i = 0; i < sets.length; i++) {
+            for (var j = 0; j < database[sets[i]].length; j++) {
+                if (database[sets[i]][j].id == card) {
+                    card = database[sets[i]][j];
+                    break;
+                }
             }
         }
     }
@@ -496,7 +496,7 @@ var removeCard = function(cardId) {
         imageUrl: 'images/cards/' + card.id + '.png',
         imageSize: cardWidth + 'x' + cardHeight,
         title: '',
-        text: 'Do you want to remove ' + card.name + ' from your collection?',
+        text: 'Do you want to remove a copy of ' + card.name + ' from your collection?',
         showCancelButton: true,
         confirmButtonText: 'Remove',
         cancelButtonText: 'Cancel',
@@ -625,6 +625,40 @@ var cardSelect = function(card) {
             }
         });
     } else if (mode == 'collection') {
-        addCard(card);
+        for (var i = 0; i < collection.length; i++) {
+            if (collection[i].id == card.id) {
+                if (collection[i].count == 2) { // If we have two copies in our collection
+                    removeCard(card);
+                    return;
+                } else if (collection[i].count == 1) { // If we have one card in the collection
+                    swal({
+                        imageUrl: 'images/cards/' + card.id + '.png',
+                        imageSize: cardWidth + 'x' + cardHeight,
+                        title: '',
+                        text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
+                        showCancelButton: true,
+                        confirmButtonText: 'Add',
+                        cancelButtonText: 'Cancel',
+                        closeOnConfirm: false,
+                        closeOnCancel: false
+                    }, function(isConfirm) {
+                        if (isConfirm) {
+                            addCard(card);
+
+                            swal.close();
+                            return;
+                        } else {
+                            removeCard(card);
+
+                            return;
+                        }
+                    });
+
+                    break;
+                }
+            } else if (i == collection.length - 1) { // We don't have a copy in our collection if we've made it this far
+                addCard(card);
+            }
+        }
     }
 };
