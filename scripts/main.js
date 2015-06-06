@@ -457,6 +457,7 @@ var addCard = function(card) {
                     populateCollection();
                     cellar.save('collection', collection);
                     swal.close();
+                    return;
                 }
             });
         }
@@ -466,7 +467,7 @@ var addCard = function(card) {
 var removeCard = function(cardId) {
     var card;
 
-    for (var i = 0; i < sets.length; i++) {
+    for (var i = 0; i < sets.length; i++) { // Get card name and ID for Sweetalert
         for (var j = 0; j < database[sets[i]].length; j++) {
             if (database[sets[i]][j].id == cardId) {
                 card = database[sets[i]][j];
@@ -489,7 +490,7 @@ var removeCard = function(cardId) {
         if (isConfirm) {
             for (var i = 0; i < collection.length; i++) {
                 if (collection[i].id == card.id) {
-                    if (card.count == 2) {
+                    if (collection[i].count == 2) {
                         swal({
                             title: '',
                             text: 'Do you want to remove one or two copies of ' + card.name + '?',
