@@ -365,7 +365,7 @@ var selectHero = function(hero) {
             $('.hero_picker').hide();
             $('.deck_hero').show();
             $('.deck_hero').empty();
-            $('.deck_hero').append('<img src="images/heroes/' + hero + '.png />');
+            $('.deck_hero').append('<div class="col-sm-12"><img src="images/heroes/' + hero + '.png /></div>');
             $('.card_grid').show();
         }
     });

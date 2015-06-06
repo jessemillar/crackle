@@ -8,6 +8,16 @@ body {
     background-repeat: repeat;
 }
 
+body {
+    padding-top: 75px;
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        padding-top: 375px;
+    }
+}
+
 .no_select {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -20,9 +30,9 @@ body {
 .card_flip_container {
     perspective: 1000;
     width: 100%;
-    margin-bottom: 150%; /* For vertical spacing */
+    margin-bottom: 150%;
+    /* For vertical spacing */
 }
-
 /* Disabled for development */
 /*.card_flip_container:hover .card_flipper,
 .card_flip_container.hover .card_flipper {
@@ -33,6 +43,7 @@ body {
 .card_front,
 .card_back {
     /* Match the values in main.js */
+    
     display: block;
     width: 100%;
 }
@@ -134,9 +145,10 @@ body {
     opacity: 0.5;
 }
 
-.navigation {
+.navbar-default {
     padding-top: 20px;
-    background-color: #393635;
+    background-image: none;
+    background-color: #393635 !important;
     border-bottom: solid 4px #1e201e;
     border-left: solid 4px #232121;
     border-right: solid 4px #736e68;
