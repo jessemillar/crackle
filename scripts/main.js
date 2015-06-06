@@ -223,9 +223,21 @@ var populateSearch = function() {
     for (var i = 0; i < sets.length; i++) {
         for (var j = 0; j < database[sets[i]].length; j++) {
             if (database[sets[i]][j].collectible === true) {
+                var collected = '';
+
+                for (var k = 0; k < collection.length; k++) {
+                    if (collection[k].id == database[sets[i]][j].id) {
+                        if (collection[k].count == 2) {
+                            collected = ' (collected x2)';
+                        } else {
+                            collected = ' (collected)';
+                        }
+                    }
+                }
+
                 var card = {
                     id: database[sets[i]][j].id,
-                    title: database[sets[i]][j].name
+                    title: database[sets[i]][j].name + collected
                 };
 
                 cards.push(card);
@@ -262,6 +274,8 @@ var populateSearch = function() {
             }
         }
     });
+
+    $('.search')[0].selectize.refreshItems();
 };
 
 var sortByCost = function(a, b) {
@@ -275,6 +289,8 @@ var sortByCost = function(a, b) {
 };
 
 var populateCollection = function() {
+    populateSearch();
+
     collection.sort(sortByCost);
 
     $('.card_grid').empty(); // Clear the HTML table
