@@ -23,10 +23,11 @@ body {
     margin-bottom: 150%; /* For vertical spacing */
 }
 
-.card_flip_container:hover .card_flipper,
+/* Disabled for development */
+/*.card_flip_container:hover .card_flipper,
 .card_flip_container.hover .card_flipper {
     transform: rotateY(180deg);
-}
+}*/
 
 .card_flip_container,
 .card_front,
@@ -38,7 +39,7 @@ body {
 /* flip speed goes here */
 
 .card_flipper {
-    transition: 0.4s;
+    transition: 0.2s;
     transform-style: preserve-3d;
     position: relative;
 }

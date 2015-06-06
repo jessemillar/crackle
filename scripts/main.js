@@ -318,6 +318,7 @@ var changeMode = function(newMode) {
 var updateModeButtons = function() { // Update the buttons' active states to reflect the current mode
     if (mode == 'browse') {
         $('.card_grid').hide();
+        $('.hero_picker').hide();
         $('#browse_button').addClass('active');
         $('#deck_button').removeClass('active');
         $('#collection_button').removeClass('active');
@@ -332,6 +333,7 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
         $('#collection_button').removeClass('active');
     } else if (mode == 'collection') {
         $('.card_grid').show();
+        $('.hero_picker').hide();
         $('#browse_button').removeClass('active');
         $('#deck_button').removeClass('active');
         $('#collection_button').addClass('active');
@@ -374,34 +376,89 @@ var addCard = function(card) {
         imageUrl: 'images/cards/' + card.id + '.png',
         imageSize: cardWidth + 'x' + cardHeight,
         title: '',
-        text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
+        text: 'Do you want to add ' + card.name + ' to your collection?',
         showCancelButton: true,
         confirmButtonText: 'Add',
-        cancelButtonText: 'Cancel'
+        cancelButtonText: 'Cancel',
+        closeOnConfirm: false,
+        closeOnCancel: true
     }, function(isConfirm) {
         if (isConfirm) {
-            for (var i = 0; i < collection.length; i++) {
-                if (collection[i].id == card.id) { // If we already have the card in our collection
-                    if (collection[i].count == 2) {
-                        sweetAlert({
-                            title: 'Oops...',
-                            text: 'You already have two copies of ' + card.name + ' in your collection!'
-                        });
+            swal({
+                title: '',
+                text: 'Do you want to add one or two copies of ' + card.name + '?',
+                showCancelButton: true,
+                confirmButtonText: 'Two',
+                cancelButtonText: 'One',
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }, function(isConfirm) {
+                if (isConfirm) { // Add two
+                    for (var i = 0; i < collection.length; i++) {
+                        if (collection[i].id == card.id) { // If we already have the card in our collection
+                            if (collection[i].count == 2) {
+                                sweetAlert({
+                                    title: 'Oops...',
+                                    text: 'You already have two copies of ' + card.name + ' in your collection!'
+                                });
 
-                        return;
-                    } else if (!collection[i].count) {
-                        collection[i].count = 2;
-                        populateCollection();
-                        cellar.save('collection', collection);
+                                swal.close();
+                                return;
+                            } else {
+                                collection[i].count = 2;
+                                populateCollection();
+                                cellar.save('collection', collection);
 
-                        return;
+                                populateCollection();
+                                cellar.save('collection', collection);
+
+                                swal.close();
+                                return;
+                            }
+                        }
                     }
-                }
-            }
 
-            collection.push(card);
-            populateCollection();
-            cellar.save('collection', collection);
+                    card.count = 2;
+                    collection.push(card);
+                    populateCollection();
+                    cellar.save('collection', collection);
+                    swal.close();
+                    return;
+                } else { // Add one
+                    for (var i = 0; i < collection.length; i++) {
+                        if (collection[i].id == card.id) { // If we already have the card in our collection
+                            if (collection[i].count == 2) {
+                                sweetAlert({
+                                    title: 'Oops...',
+                                    text: 'You already have two copies of ' + card.name + ' in your collection!'
+                                });
+
+                                swal.close();
+                                return;
+                            } else if (collection[i].count == 1) {
+                                collection[i].count = 2;
+                                populateCollection();
+                                cellar.save('collection', collection);
+
+                                swal.close();
+                                return;
+                            } else if (!collection[i].count) {
+                                collection[i].count = 1;
+                                populateCollection();
+                                cellar.save('collection', collection);
+
+                                swal.close();
+                                return;
+                            }
+                        }
+                    }
+
+                    collection.push(card);
+                    populateCollection();
+                    cellar.save('collection', collection);
+                    swal.close();
+                }
+            });
         }
     });
 };
@@ -422,25 +479,67 @@ var removeCard = function(cardId) {
         imageUrl: 'images/cards/' + card.id + '.png',
         imageSize: cardWidth + 'x' + cardHeight,
         title: '',
-        text: 'Do you want to remove a copy of ' + card.name + ' from your collection?',
+        text: 'Do you want to remove ' + card.name + ' from your collection?',
         showCancelButton: true,
         confirmButtonText: 'Remove',
-        cancelButtonText: 'Cancel'
+        cancelButtonText: 'Cancel',
+        closeOnConfirm: false,
+        closeOnCancel: true
     }, function(isConfirm) {
         if (isConfirm) {
             for (var i = 0; i < collection.length; i++) {
-                if (collection[i].id == cardId) {
-                    if (collection[i].count && collection[i].count == 2) {
-                        collection[i].count--;
+                if (collection[i].id == card.id) {
+                    if (card.count == 2) {
+                        swal({
+                            title: '',
+                            text: 'Do you want to remove one or two copies of ' + card.name + '?',
+                            showCancelButton: true,
+                            confirmButtonText: 'Two',
+                            cancelButtonText: 'One'
+                        }, function(isConfirm) {
+                            if (isConfirm) { // Remove two
+                                for (var i = 0; i < collection.length; i++) {
+                                    if (collection[i].id == card.id) { // If we already have the card in our collection
+                                        collection.splice(i, 1);
+                                        populateCollection();
+                                        cellar.save('collection', collection);
+
+                                        swal.close();
+                                        return;
+                                    }
+                                }
+                            } else { // Remove one
+                                for (var i = 0; i < collection.length; i++) {
+                                    if (collection[i].id == card.id) { // If we already have the card in our collection
+                                        if (collection[i].count == 2) {
+                                            collection[i].count = 1;
+                                            populateCollection();
+                                            cellar.save('collection', collection);
+
+                                            swal.close();
+                                            return;
+                                        } else {
+                                            collection.splice(i, 1);
+                                            populateCollection();
+                                            cellar.save('collection', collection);
+
+                                            swal.close();
+                                            return;
+                                        }
+                                    }
+                                }
+                            }
+                        });
                     } else {
                         collection.splice(i, 1);
+                        populateCollection();
+                        cellar.save('collection', collection);
+
+                        swal.close();
+                        return;
                     }
                 }
             }
-
-            cellar.save('collection', collection);
-
-            populateCollection();
         }
     });
 };
