@@ -625,40 +625,44 @@ var cardSelect = function(card) {
             }
         });
     } else if (mode == 'collection') {
-        for (var i = 0; i < collection.length; i++) {
-            if (collection[i].id == card.id) {
-                if (collection[i].count == 2) { // If we have two copies in our collection
-                    removeCard(card);
-                    return;
-                } else if (collection[i].count == 1) { // If we have one card in the collection
-                    swal({
-                        imageUrl: 'images/cards/' + card.id + '.png',
-                        imageSize: cardWidth + 'x' + cardHeight,
-                        title: '',
-                        text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
-                        showCancelButton: true,
-                        confirmButtonText: 'Add',
-                        cancelButtonText: 'Cancel',
-                        closeOnConfirm: false,
-                        closeOnCancel: false
-                    }, function(isConfirm) {
-                        if (isConfirm) {
-                            addCard(card);
+        if (collection.length > 0) {
+            for (var i = 0; i < collection.length; i++) {
+                if (collection[i].id == card.id) {
+                    if (collection[i].count == 2) { // If we have two copies in our collection
+                        removeCard(card);
+                        return;
+                    } else if (collection[i].count == 1) { // If we have one card in the collection
+                        swal({
+                            imageUrl: 'images/cards/' + card.id + '.png',
+                            imageSize: cardWidth + 'x' + cardHeight,
+                            title: '',
+                            text: 'Do you want to add a copy of ' + card.name + ' to your collection?',
+                            showCancelButton: true,
+                            confirmButtonText: 'Add',
+                            cancelButtonText: 'Cancel',
+                            closeOnConfirm: false,
+                            closeOnCancel: false
+                        }, function(isConfirm) {
+                            if (isConfirm) {
+                                addCard(card);
 
-                            swal.close();
-                            return;
-                        } else {
-                            removeCard(card);
+                                swal.close();
+                                return;
+                            } else {
+                                removeCard(card);
 
-                            return;
-                        }
-                    });
+                                return;
+                            }
+                        });
 
-                    break;
+                        break;
+                    }
+                } else if (i == collection.length - 1) { // We don't have a copy in our collection if we've made it this far
+                    addCard(card);
                 }
-            } else if (i == collection.length - 1) { // We don't have a copy in our collection if we've made it this far
-                addCard(card);
             }
+        } else { // If we have nothing in our collection
+            addCard(card);
         }
     }
 };
