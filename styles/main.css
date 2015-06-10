@@ -198,6 +198,11 @@ body {
     font-family: 'Roboto', sans-serif !important;
 }
 
+.current-mode {
+    /* For the blue outline on mode selection buttons */
+    box-shadow: 0 0 3px 3px rgba(60, 161, 251, 0.9), 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #ede6bc, inset 0 0 0 3px #efe488, 0 0 0 3px #241d1b, 0 0 2px 5px #6a6762;
+}
+
 .btn:focus,
 .btn.focus,
 .btn:active:focus,
@@ -226,6 +231,12 @@ body {
     box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #BAB389, inset 0 0 0 3px #BCB155, 0 0 0 3px #241d1b, 0 0 2px 5px #6a6762;
     font-size: 15px !important;
     font-family: 'Roboto', sans-serif !important;
+}
+
+.current-mode.active,
+.current-mode:active {
+    /* For the blue outline on mode selection buttons */
+    box-shadow: 0 0 3px 3px rgba(60, 161, 251, 0.9), 3px 6px 10px rgba(0, 0, 0, 0.75), inset 0 0 0 1px #BAB389, inset 0 0 0 3px #BCB155, 0 0 0 3px #241d1b, 0 0 2px 5px #6a6762;
 }
 
 .sweet-alert button.active,

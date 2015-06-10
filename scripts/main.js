@@ -335,24 +335,24 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
     if (mode == 'browse') {
         $('.card_grid').hide();
         $('.hero_picker').hide();
-        $('#browse_button').addClass('active');
-        $('#deck_button').removeClass('active');
-        $('#collection_button').removeClass('active');
+        $('#browse_button').addClass('current-mode');
+        $('#deck_button').removeClass('current-mode');
+        $('#collection_button').removeClass('current-mode');
     } else if (mode == 'deck') {
         if (deck.cards.length == 0) {
             addDeck();
         }
 
         $('.card_grid').hide();
-        $('#browse_button').removeClass('active');
-        $('#deck_button').addClass('active');
-        $('#collection_button').removeClass('active');
+        $('#browse_button').removeClass('current-mode');
+        $('#deck_button').addClass('current-mode');
+        $('#collection_button').removeClass('current-mode');
     } else if (mode == 'collection') {
         $('.card_grid').show();
         $('.hero_picker').hide();
-        $('#browse_button').removeClass('active');
-        $('#deck_button').removeClass('active');
-        $('#collection_button').addClass('active');
+        $('#browse_button').removeClass('current-mode');
+        $('#deck_button').removeClass('current-mode');
+        $('#collection_button').addClass('current-mode');
     }
 };
 
