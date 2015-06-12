@@ -13,7 +13,9 @@ var sets = ['Basic', 'Classic', 'Blackrock Mountain', 'Curse of Naxxramas', 'Gob
     },
     cardWidth = 240, // Helps get the size of the Sweetalert correct
     cardHeight = Math.round(cardWidth * 1.51), // Helps get the size of the Sweetalert correct by calculating based on the correct ratio
-    cardsPerRow = 4; // Only certain numbers work since we have a total width of 12 columns
+    cardsPerRow = 4, // Only certain numbers work since we have a total width of 12 columns
+    deckHeroWidth = 172,
+    deckHeroHeight = 250;
 
 var init = function() {
     if (cellar.get('mode')) {
@@ -208,31 +210,39 @@ var sortByCost = function(a, b) {
 };
 
 var populateCollection = function() {
+    var cards;
+
+    if (mode == 'collection') {
+        cards = collection;
+    } else if (mode == 'deck') {
+        cards = deck.cards;
+    }
+
     populateSearch();
 
-    collection.sort(sortByCost);
+    cards.sort(sortByCost);
 
     $('.card_grid').empty(); // Clear the HTML table
 
     var columnCount = 0,
         appendString = '<div class="row">'; // The string we'll build and then append to the DOM
 
-    for (var i = 0; i < collection.length; i++) {
+    for (var i = 0; i < cards.length; i++) {
         if (columnCount < cardsPerRow) {
-            if (collection[i].count == 2) {
-                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div><div class="card_back"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/back.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div></div></div>';
+            if (cards[i].count == 2) {
+                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + cards[i].id + '\')" src="images/cards/' + cards[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div><div class="card_back"><img onclick="removeCard(\'' + cards[i].id + '\')" src="images/back.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div></div></div>';
             } else {
-                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_back"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/back.png" /></div></div></div></div>';
+                appendString += '<div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + cards[i].id + '\')" src="images/cards/' + cards[i].id + '.png" /></div><div class="card_back"><img onclick="removeCard(\'' + cards[i].id + '\')" src="images/back.png" /></div></div></div></div>';
             }
 
             columnCount++;
         } else { // New row
             $('.card_grid').append(appendString + '</div>');
 
-            if (collection[i].count == 2) {
-                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div><div class="card_back"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/back.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div></div></div>';
+            if (cards[i].count == 2) {
+                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + cards[i].id + '\')" src="images/cards/' + cards[i].id + '.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div><div class="card_back"><img onclick="removeCard(\'' + cards[i].id + '\')" src="images/back.png" /><div class="card_count_banner"><img src="images/x2.png" width="' + cardWidth + '" /></div></div></div></div></div>';
             } else {
-                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/cards/' + collection[i].id + '.png" /></div><div class="card_back"><img onclick="removeCard(\'' + collection[i].id + '\')" src="images/back.png" /></div></div></div></div>';
+                appendString = '<div class="row"><div class="col-xs-' + (12 / cardsPerRow) + '"><div class="card_flip_container"><div class="card_flipper"><div class="card_front"><img onclick="removeCard(\'' + cards[i].id + '\')" src="images/cards/' + cards[i].id + '.png" /></div><div class="card_back"><img onclick="removeCard(\'' + cards[i].id + '\')" src="images/back.png" /></div></div></div></div>';
             }
 
             columnCount = 1;
@@ -300,7 +310,7 @@ var selectHero = function(hero) {
             $('.hero_picker').hide();
             $('.deck_hero').show();
             $('.deck_hero').empty();
-            $('.deck_hero').append('<div class="col-sm-12"><center><img src="images/heroes/' + hero + '.png" width="172" height="250"/></center></div>');
+            $('.deck_hero').append('<div class="col-sm-12"><center><img src="images/heroes/' + hero + '.png" width="' + deckHeroWidth + '" height="' + deckHeroHeight + '"/></center></div>');
             $('.card_grid').show();
         }
     });
