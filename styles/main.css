@@ -18,6 +18,10 @@ body {
     }
 }
 
+.deck_hero {
+    padding-top: 50px;
+}
+
 .no_select {
     -webkit-touch-callout: none;
     -webkit-user-select: none;

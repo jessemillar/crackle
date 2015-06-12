@@ -83,70 +83,6 @@ var getUrlParameter = function(param) {
     }
 };
 
-// var checkUrl = function() {
-//     if (getUrlParameter('type')) {
-//         if (getUrlParameter('type').toLowerCase() == 'collection') {
-//             swal({
-//                 title: '',
-//                 text: 'Do you want to load this collection?',
-//                 showCancelButton: true,
-//                 confirmButtonText: 'Load',
-//                 cancelButtonText: 'Cancel'
-//             }, function(isConfirm) {
-//                 if (isConfirm) {
-//                     var array = JSON.parse(decodeURI(getUrlParameter('c'))),
-//                         collection = []; // Clear our current collection (maybe backup later on)
-
-//                     for (var i = 0; i < array.length; i++) {
-//                         for (var j = 0; j < sets.length; j++) {
-//                             for (var k = 0; k < database[sets[j]].length; k++) {
-//                                 if (database[sets[j]][k].id == array[i].id) {
-//                                     var card = database[sets[j]][k];
-//                                     card.count = array[i].count;
-
-//                                     collection.push(card);
-
-//                                     break;
-//                                 }
-//                             }
-//                         }
-//                     }
-
-//                     cellar.save('collection', collection);
-//                     populateCollection();
-//                     changeMode('collection');
-
-//                     location.assign(window.location.href.split('?')[0]);
-//                 }
-//             });
-//         } else if (getUrlParameter('type').toLowerCase() == 'deck') {
-//             swal({
-//                 title: '',
-//                 text: 'Do you want to load the deck "' + getUrlParameter('name') + '"?',
-//                 showCancelButton: true,
-//                 confirmButtonText: 'Load',
-//                 cancelButtonText: 'Cancel'
-//             }, function(isConfirm) {
-//                 if (isConfirm) {
-//                     // for (var i = 0; i < collection.length; i++) {
-//                     //     if (collection[i].id == cardId) {
-//                     //         if (collection[i].count && collection[i].count == 2) {
-//                     //             collection[i].count--;
-//                     //         } else {
-//                     //             collection.splice(i, 1);
-//                     //         }
-//                     //     }
-//                     // }
-
-//                     // cellar.save('collection', collection);
-
-//                     // populateCollection();
-//                 }
-//             });
-//         }
-//     }
-// };
-
 var loadData = function() {
     swal({
         title: '',
@@ -179,7 +115,7 @@ var exportData = function() {
             if (isConfirm) {
                 var content = {
                     collection: []
-                }
+                };
 
                 for (var i = 0; i < collection.length; i++) {
                     var card = {};
@@ -192,23 +128,6 @@ var exportData = function() {
                     }
 
                     content.collection.push(card);
-
-                    // for (var i = 0; i < sets.length; i++) { // Export all possible cards for debugging purposes
-                    //     for (var j = 0; j < database[sets[i]].length; j++) {
-                    //         if (database[sets[i]][j].collectible == true) {
-                    //             var card = {};
-
-                    //             if (collection[i].count) {
-                    //                 card.i = database[sets[i]][j].id;
-                    //                 card.c = 2; // Give two copies of all cards for maximum url length
-                    //             } else {
-                    //                 card.i = database[sets[i]][j].id;
-                    //             }
-
-                    //             array.push(card);
-                    //         }
-                    //     }
-                    // }
                 }
 
                 download('collection.json', JSON.stringify(content, null, 4));
@@ -339,7 +258,7 @@ var updateModeButtons = function() { // Update the buttons' active states to ref
         $('#deck_button').removeClass('current-mode');
         $('#collection_button').removeClass('current-mode');
     } else if (mode == 'deck') {
-        if (deck.cards.length == 0) {
+        if (deck.cards.length === 0) {
             addDeck();
         }
 
@@ -381,7 +300,7 @@ var selectHero = function(hero) {
             $('.hero_picker').hide();
             $('.deck_hero').show();
             $('.deck_hero').empty();
-            $('.deck_hero').append('<div class="col-sm-12"><img src="images/heroes/' + hero + '.png /></div>');
+            $('.deck_hero').append('<div class="col-sm-12"><center><img src="images/heroes/' + hero + '.png" width="172" height="250"/></center></div>');
             $('.card_grid').show();
         }
     });
