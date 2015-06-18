@@ -1,6 +1,1 @@
-<!---
-This is a comment
--->
-
-# crackle
-Hearthstone collection tracking
+Put on indefinite hold because I found HearthPwn.
